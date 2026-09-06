@@ -39,7 +39,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/#tools" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                <Link href="/tools/fiverr-word-checker" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-medium text-slate-900 dark:text-slate-200">
                   Fiverr / Upwork Word Checker
                 </Link>
               </li>

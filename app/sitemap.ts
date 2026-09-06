@@ -18,16 +18,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/tools/fiverr-word-checker`,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
     // Future tool pages will be registered here as they are built:
     // e.g.:
     // {
     //   url: `${baseUrl}/tools/image-to-text`,
-    //   lastModified: currentDate,
-    //   changeFrequency: "monthly",
-    //   priority: 0.8,
-    // },
-    // {
-    //   url: `${baseUrl}/tools/freelance-word-checker`,
     //   lastModified: currentDate,
     //   changeFrequency: "monthly",
     //   priority: 0.8,

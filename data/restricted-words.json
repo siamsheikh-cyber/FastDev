@@ -1,0 +1,362 @@
+[
+  {
+    "word": "outside of fiverr",
+    "category": "Contact/Communication Methods",
+    "alternative": "Remove this — discussing external communication violates platform terms",
+    "note": "Strictly prohibited; triggers automatic security review and possible account suspension."
+  },
+  {
+    "word": "i work in other places besides fiverr",
+    "category": "Contact/Communication Methods",
+    "alternative": "Remove this — avoid referencing off-platform services",
+    "note": "Platform algorithms flag phrases that imply working or taking clients off-site."
+  },
+  {
+    "word": "phone number",
+    "category": "Contact/Communication Methods",
+    "alternative": "Use platform direct messaging instead",
+    "note": "Direct contact details trigger instant automated warnings."
+  },
+  {
+    "word": "credit card details",
+    "category": "Payment Related",
+    "alternative": "Never request or exchange card details; use platform checkout",
+    "note": "Severe violation of security and payment protection policies."
+  },
+  {
+    "word": "bank account",
+    "category": "Payment Related",
+    "alternative": "Platform order payment / official escrow checkout",
+    "note": "Never share or ask for banking routing details."
+  },
+  {
+    "word": "wire transfer",
+    "category": "Payment Related",
+    "alternative": "Official platform checkout invoice",
+    "note": "Off-platform payment method that violates terms of service."
+  },
+  {
+    "word": "direct deposit",
+    "category": "Payment Related",
+    "alternative": "Platform milestone / custom order offer",
+    "note": "Prohibited external payment term."
+  },
+  {
+    "word": "freelancer.com",
+    "category": "Other Marketplace Related",
+    "alternative": "Remove this — referencing competitor websites violates platform terms",
+    "note": "Direct link or name of competitor platform."
+  },
+  {
+    "word": "positive feedback",
+    "category": "Reviews/Rating Related",
+    "alternative": "I hope you are satisfied with the delivered work",
+    "note": "Soliciting feedback or manipulating ratings directly violates TOS."
+  },
+  {
+    "word": "positive rating",
+    "category": "Reviews/Rating Related",
+    "alternative": "I hope you find the service helpful and accurate",
+    "note": "Directly asking for positive ratings can trigger seller warnings."
+  },
+  {
+    "word": "negative feedback",
+    "category": "Reviews/Rating Related",
+    "alternative": "Please let me know if you would like any revisions made",
+    "note": "Discussing negative ratings or feedback manipulation is flagged."
+  },
+  {
+    "word": "five star",
+    "category": "Reviews/Rating Related",
+    "alternative": "I strive to deliver the highest quality results for your project",
+    "note": "Explicitly requesting five-star reviews is strictly against marketplace rules."
+  },
+  {
+    "word": "5 star",
+    "category": "Reviews/Rating Related",
+    "alternative": "High quality delivery / complete project scope",
+    "note": "Star rating requests are flagged by automated compliance checks."
+  },
+  {
+    "word": "5-star",
+    "category": "Reviews/Rating Related",
+    "alternative": "High quality delivery / complete project satisfaction",
+    "note": "Star rating requests are flagged by automated compliance checks."
+  },
+  {
+    "word": "empty delivery",
+    "category": "Conduct Related",
+    "alternative": "Official order delivery with complete project files",
+    "note": "Delivering blank files to stop the timer violates fulfillment rules."
+  },
+  {
+    "word": "partial delivery",
+    "category": "Conduct Related",
+    "alternative": "Project milestone delivery with documented draft progress",
+    "note": "Incomplete deliveries without prior agreement can cause dispute flags."
+  },
+  {
+    "word": "unprofessional behavior",
+    "category": "Conduct Related",
+    "alternative": "Professional communication / standard order collaboration",
+    "note": "Conduct disputes are scrutinized by Trust & Safety teams."
+  },
+  {
+    "word": "test project for free",
+    "category": "Conduct Related",
+    "alternative": "Paid initial milestone / sample order",
+    "note": "Asking or offering free labor is against platform fair use policies."
+  },
+  {
+    "word": "free work",
+    "category": "Conduct Related",
+    "alternative": "Custom milestone / small trial order",
+    "note": "Offering or demanding unpaid work is prohibited."
+  },
+  {
+    "word": "contact",
+    "category": "Contact/Communication Methods",
+    "alternative": "Message me here on the order page / platform chat",
+    "note": "Common trigger keyword for off-platform communication filters."
+  },
+  {
+    "word": "skype",
+    "category": "Contact/Communication Methods",
+    "alternative": "Platform built-in video call / order messenger",
+    "note": "External voice/video apps are forbidden unless authorized for specific enterprise gigs."
+  },
+  {
+    "word": "zoom",
+    "category": "Contact/Communication Methods",
+    "alternative": "Platform built-in video call feature",
+    "note": "Only platform-approved Zoom integration within the order is permitted."
+  },
+  {
+    "word": "whatsapp",
+    "category": "Contact/Communication Methods",
+    "alternative": "Platform direct chat / inbox",
+    "note": "Sharing phone/messaging handles is an immediate compliance violation."
+  },
+  {
+    "word": "email",
+    "category": "Contact/Communication Methods",
+    "alternative": "Platform inbox / attach files directly to the order",
+    "note": "Exchanging emails is restricted unless required for specific service access."
+  },
+  {
+    "word": "messenger",
+    "category": "Contact/Communication Methods",
+    "alternative": "Platform chat system",
+    "note": "Avoid referring to external messaging tools."
+  },
+  {
+    "word": "voicemail",
+    "category": "Contact/Communication Methods",
+    "alternative": "Recorded audio file attached to the gig order",
+    "note": "Sometimes flagged even for service-related use (e.g. voiceover gigs)."
+  },
+  {
+    "word": "telegram",
+    "category": "Contact/Communication Methods",
+    "alternative": "Platform inbox / order conversation",
+    "note": "High-risk trigger for off-platform communication and scams."
+  },
+  {
+    "word": "instagram",
+    "category": "Contact/Communication Methods",
+    "alternative": "Platform direct message",
+    "note": "Social media handles should not be shared for off-platform contact."
+  },
+  {
+    "word": "facebook",
+    "category": "Contact/Communication Methods",
+    "alternative": "Platform message thread",
+    "note": "Direct social media references trigger contact warnings."
+  },
+  {
+    "word": "twitter",
+    "category": "Contact/Communication Methods",
+    "alternative": "Platform message thread",
+    "note": "Sharing social handles is flagged by automated systems."
+  },
+  {
+    "word": "discord",
+    "category": "Contact/Communication Methods",
+    "alternative": "Platform direct chat",
+    "note": "External community and chat handles are restricted."
+  },
+  {
+    "word": "linkedin",
+    "category": "Contact/Communication Methods",
+    "alternative": "Platform profile / portfolio showcase",
+    "note": "External profile links may trigger compliance filters."
+  },
+  {
+    "word": "call me",
+    "category": "Contact/Communication Methods",
+    "alternative": "Platform audio/video call feature",
+    "note": "Requesting direct calls bypasses platform monitoring."
+  },
+  {
+    "word": "phone",
+    "category": "Contact/Communication Methods",
+    "alternative": "Platform messenger",
+    "note": "Phone discussions trigger automated compliance warnings."
+  },
+  {
+    "word": "pay",
+    "category": "Payment Related",
+    "alternative": "Fund through order milestone / accept custom offer",
+    "note": "Direct payment negotiations are closely monitored."
+  },
+  {
+    "word": "payment",
+    "category": "Payment Related",
+    "alternative": "Order budget / milestone funding / custom offer",
+    "note": "Discussing payment methods directly can flag client-seller chats."
+  },
+  {
+    "word": "paypal",
+    "category": "Payment Related",
+    "alternative": "Platform official checkout / escrow system",
+    "note": "Mentioning specific off-site payment services is strictly forbidden."
+  },
+  {
+    "word": "payoneer",
+    "category": "Payment Related",
+    "alternative": "Platform balance / official order checkout",
+    "note": "Mentioning direct payout handles violates Terms of Service."
+  },
+  {
+    "word": "money",
+    "category": "Payment Related",
+    "alternative": "Project budget / service fee / gig price",
+    "note": "Use platform terminology like 'gig offer' or 'project budget'."
+  },
+  {
+    "word": "transferwise",
+    "category": "Payment Related",
+    "alternative": "Platform built-in payment processor",
+    "note": "Third-party payment gateways trigger safety warnings."
+  },
+  {
+    "word": "wise",
+    "category": "Payment Related",
+    "alternative": "Platform escrow checkout",
+    "note": "External money transfer platforms are restricted."
+  },
+  {
+    "word": "crypto",
+    "category": "Payment Related",
+    "alternative": "Platform accepted checkout methods",
+    "note": "Cryptocurrency transactions are prohibited on most freelance marketplaces."
+  },
+  {
+    "word": "cryptocurrency",
+    "category": "Payment Related",
+    "alternative": "Platform accepted checkout methods",
+    "note": "Unregulated payment method trigger."
+  },
+  {
+    "word": "bitcoin",
+    "category": "Payment Related",
+    "alternative": "Platform order checkout",
+    "note": "Prohibited direct payment term."
+  },
+  {
+    "word": "cash",
+    "category": "Payment Related",
+    "alternative": "Order compensation / custom offer",
+    "note": "Cash payments or offline compensation violate platform policy."
+  },
+  {
+    "word": "peopleperhour",
+    "category": "Other Marketplace Related",
+    "alternative": "Remove this — discussing competing marketplaces is forbidden",
+    "note": "Mentioning other freelance platforms is flagged by automated filters."
+  },
+  {
+    "word": "upwork",
+    "category": "Other Marketplace Related",
+    "alternative": "Remove this — referencing competing freelance platforms violates TOS",
+    "note": "Compromises seller safety when mentioned in competitor chats."
+  },
+  {
+    "word": "freelancer",
+    "category": "Other Marketplace Related",
+    "alternative": "Seller / Service provider (or remove if referring to Freelancer.com)",
+    "note": "May trigger marketplace name filters depending on context."
+  },
+  {
+    "word": "toptal",
+    "category": "Other Marketplace Related",
+    "alternative": "Remove competitor name reference",
+    "note": "Competitor marketplace mention."
+  },
+  {
+    "word": "guru",
+    "category": "Other Marketplace Related",
+    "alternative": "Remove competitor name reference / use 'expert' for skill description",
+    "note": "Competitor freelance marketplace name."
+  },
+  {
+    "word": "fiverr",
+    "category": "Other Marketplace Related",
+    "alternative": "Remove if mentioned on competing platforms like Upwork",
+    "note": "Mentioning Fiverr on Upwork (or vice versa) triggers instant TOS filters."
+  },
+  {
+    "word": "reviews",
+    "category": "Reviews/Rating Related",
+    "alternative": "Feedback on delivered work / project evaluation",
+    "note": "Review solicitation or review swapping is strictly monitored."
+  },
+  {
+    "word": "review",
+    "category": "Reviews/Rating Related",
+    "alternative": "Project assessment / order satisfaction",
+    "note": "Review manipulation triggers automated account reviews."
+  },
+  {
+    "word": "rating",
+    "category": "Reviews/Rating Related",
+    "alternative": "Order satisfaction / final milestone acceptance",
+    "note": "Rating solicitation is prohibited by Fiverr and Upwork guidelines."
+  },
+  {
+    "word": "feedback",
+    "category": "Reviews/Rating Related",
+    "alternative": "Order notes / delivery revisions",
+    "note": "Avoid directly asking for public feedback."
+  },
+  {
+    "word": "tip",
+    "category": "Reviews/Rating Related",
+    "alternative": "Additional project milestone / extra gig bonus",
+    "note": "Explicitly asking for tips in chat messages violates seller conduct rules."
+  },
+  {
+    "word": "spamming",
+    "category": "Conduct Related",
+    "alternative": "Follow-up message / project updates",
+    "note": "Unsolicited or repeated messages can lead to buyer reports."
+  },
+  {
+    "word": "chargeback",
+    "category": "Conduct Related",
+    "alternative": "Order cancellation request via Resolution Center",
+    "note": "External payment disputes can result in permanent account bans."
+  },
+  {
+    "word": "refund",
+    "category": "Conduct Related",
+    "alternative": "Mutual order cancellation via Resolution Center",
+    "note": "Handle refunds through platform tools to prevent seller penalty."
+  },
+  {
+    "word": "dispute",
+    "category": "Conduct Related",
+    "alternative": "Resolution Center discussion / customer support inquiry",
+    "note": "Use official resolution channels."
+  }
+]
