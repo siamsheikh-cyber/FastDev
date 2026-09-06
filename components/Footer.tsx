@@ -34,7 +34,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/#tools" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                <Link href="/tools/image-to-text" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-medium text-slate-900 dark:text-slate-200">
                   Image to Text (OCR)
                 </Link>
               </li>

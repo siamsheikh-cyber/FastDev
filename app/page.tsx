@@ -46,9 +46,9 @@ const toolList = [
     description:
       "Extract editable text and code snippets from screenshots, scans, and images directly in your browser with zero server uploads.",
     icon: FileScan,
-    status: "Coming Soon",
-    isAvailable: false,
-    href: "#tools",
+    status: "Live & Ready",
+    isAvailable: true,
+    href: "/tools/image-to-text",
     gradient: "from-indigo-500 to-violet-600",
     badgeColor: "bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800/50",
     features: ["Local in-browser OCR", "Image drag & drop", "Preserves formatting"],

@@ -164,9 +164,9 @@ export default function CaseConverterPage() {
             Text Case Converter
           </h1>
 
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">
+          {/*  <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">
             FastDev Text Case Converter is a high-speed string transformation tool tailored for developers, freelancers, and content writers. Convert text between UPPERCASE, lowercase, Title Case, Sentence case, and programming identifier cases with instant client-side execution and zero data collection.
-          </p>
+          </p> */}
         </header>
 
         {/* The Interactive Tool Section */}
