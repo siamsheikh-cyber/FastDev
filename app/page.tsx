@@ -6,6 +6,7 @@ import {
   Type,
   FileScan,
   ShieldCheck,
+  Image as ImageIcon,
   ArrowRight,
   Zap,
   Lock,
@@ -16,15 +17,29 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "FastDev — Developer & Freelancer Utility Toolkit",
+  title: "FearDev — Developer & Freelancer Utility Toolkit",
   description:
-    "FastDev delivers instant, client-side utilities for developers and freelancers: Text Case Converters, OCR Image to Text, and Fiverr/Upwork Word Checkers.",
+    "FearDev delivers instant, client-side utilities for developers and freelancers: Image Format Converters, Text Case Converters, OCR Image to Text, and Fiverr/Upwork Word Checkers.",
   alternates: {
     canonical: "/",
   },
 };
 
 const toolList = [
+  {
+    id: "image-format-converter",
+    title: "Image Format Converter",
+    category: "Media & Optimization",
+    description:
+      "Convert images between JPEG, PNG, and WEBP formats with custom compression quality, live file size comparisons, and zero cloud uploads.",
+    icon: ImageIcon,
+    status: "New & Live",
+    isAvailable: true,
+    href: "/tools/image-format-converter",
+    gradient: "from-cyan-500 to-indigo-600",
+    badgeColor: "bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800/50",
+    features: ["WEBP, JPEG & PNG output", "Compression quality slider", "Before/After size comparison"],
+  },
   {
     id: "case-converter",
     title: "Text Case Converter",

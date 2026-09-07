@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   Terminal,
@@ -13,6 +14,7 @@ import {
   Type,
   FileScan,
   ShieldCheck,
+  Image as ImageIcon,
   ArrowRight,
   ExternalLink,
 } from "lucide-react";
@@ -37,6 +39,15 @@ const toolItems: ToolItem[] = [
     badge: "Live",
     badgeColor: "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border-blue-200 dark:border-blue-800/60",
     iconBg: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20",
+  },
+  {
+    name: "Image Format Converter",
+    href: "/tools/image-format-converter",
+    description: "Convert JPG, PNG, WEBP with custom quality & compression",
+    icon: ImageIcon,
+    badge: "New",
+    badgeColor: "bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800/60",
+    iconBg: "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20",
   },
   {
     name: "Image to Text (OCR)",
@@ -153,17 +164,18 @@ export function Navbar() {
           <div className="flex items-center gap-8">
             <Link
               href="/"
-              className="group flex items-center gap-2.5 font-bold text-xl tracking-tight text-slate-900 dark:text-white"
+              className="group flex items-center gap-2.5 transition-transform duration-200"
+              aria-label="FearDev Homepage"
             >
-              <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-200">
-                <Terminal className="w-5 h-5" />
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span>FastDev</span>
-                <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 border border-indigo-200/60 dark:border-indigo-800/60">
-                  <Sparkles className="w-2.5 h-2.5" />
-                  Toolkit
-                </span>
+              <div className="relative flex items-center overflow-hidden ">
+                <Image
+                  src="/feardev.jpg"
+                  alt="FearDev Logo"
+                  width={340}
+                  height={88}
+                  className="h-12 w-42 object-cover"
+                  priority
+                />
               </div>
             </Link>
 
@@ -189,18 +201,16 @@ export function Navbar() {
                   aria-expanded={dropdownOpen}
                   aria-controls="all-tools-dropdown-menu"
                   onClick={() => setDropdownOpen((prev) => !prev)}
-                  className={`group flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium rounded-xl transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:focus-visible:ring-indigo-400 ${
-                    dropdownOpen
-                      ? "bg-indigo-50/80 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 shadow-xs"
-                      : "text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60"
-                  }`}
+                  className={`group flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium rounded-xl transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:focus-visible:ring-indigo-400 ${dropdownOpen
+                    ? "bg-indigo-50/80 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 shadow-xs"
+                    : "text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60"
+                    }`}
                 >
                   <Layers className={`w-4 h-4 transition-colors ${dropdownOpen ? "text-indigo-600 dark:text-indigo-400" : "text-slate-500 dark:text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400"}`} />
                   <span>All Tools</span>
                   <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform duration-200 ease-out ${
-                      dropdownOpen ? "rotate-180 text-indigo-600 dark:text-indigo-400" : "text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400"
-                    }`}
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ease-out ${dropdownOpen ? "rotate-180 text-indigo-600 dark:text-indigo-400" : "text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400"
+                      }`}
                   />
                 </button>
 
@@ -210,11 +220,10 @@ export function Navbar() {
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="all-tools-menu-button"
-                  className={`absolute left-0 top-full pt-2 w-80 z-50 transition-all duration-200 origin-top-left ${
-                    dropdownOpen
-                      ? "opacity-100 scale-100 translate-y-0 pointer-events-auto visible"
-                      : "opacity-0 scale-95 -translate-y-1 pointer-events-none invisible"
-                  }`}
+                  className={`absolute left-0 top-full pt-2 w-80 z-50 transition-all duration-200 origin-top-left ${dropdownOpen
+                    ? "opacity-100 scale-100 translate-y-0 pointer-events-auto visible"
+                    : "opacity-0 scale-95 -translate-y-1 pointer-events-none invisible"
+                    }`}
                 >
                   <div className="rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl p-2 shadow-xl shadow-slate-900/10 dark:shadow-2xl dark:shadow-black/50 ring-1 ring-black/5 dark:ring-white/5 space-y-1">
                     <div className="px-3 py-1.5 flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80">
@@ -222,7 +231,7 @@ export function Navbar() {
                         Productivity Suite
                       </span>
                       <span className="text-[11px] font-medium text-indigo-600 dark:text-indigo-400">
-                        3 Tools
+                        {toolItems.length} Tools
                       </span>
                     </div>
 
@@ -241,11 +250,10 @@ export function Navbar() {
                             role="menuitem"
                             tabIndex={dropdownOpen ? 0 : -1}
                             onClick={() => setDropdownOpen(false)}
-                            className={`group flex items-start gap-3 p-2.5 rounded-xl transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:focus-visible:ring-indigo-400 ${
-                              isCurrent
-                                ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
-                                : "hover:bg-slate-100/90 dark:hover:bg-slate-800/70 text-slate-700 dark:text-slate-200"
-                            }`}
+                            className={`group flex items-start gap-3 p-2.5 rounded-xl transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:focus-visible:ring-indigo-400 ${isCurrent
+                              ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
+                              : "hover:bg-slate-100/90 dark:hover:bg-slate-800/70 text-slate-700 dark:text-slate-200"
+                              }`}
                           >
                             <div
                               className={`flex items-center justify-center w-9 h-9 rounded-xl shrink-0 transition-transform group-hover:scale-105 ${tool.iconBg}`}
@@ -325,9 +333,8 @@ export function Navbar() {
                 <span>All Tools ({toolItems.length})</span>
               </div>
               <ChevronDown
-                className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${
-                  mobileToolsExpanded ? "rotate-180" : ""
-                }`}
+                className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${mobileToolsExpanded ? "rotate-180" : ""
+                  }`}
               />
             </button>
 
@@ -344,11 +351,10 @@ export function Navbar() {
                       onClick={() => {
                         setMobileMenuOpen(false);
                       }}
-                      className={`flex items-start gap-3 p-2.5 rounded-xl transition-colors ${
-                        isCurrent
-                          ? "bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200/70 dark:border-indigo-800/70"
-                          : "bg-white dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-800 dark:text-slate-200"
-                      }`}
+                      className={`flex items-start gap-3 p-2.5 rounded-xl transition-colors ${isCurrent
+                        ? "bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200/70 dark:border-indigo-800/70"
+                        : "bg-white dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-800 dark:text-slate-200"
+                        }`}
                     >
                       <div
                         className={`flex items-center justify-center w-8 h-8 rounded-lg shrink-0 ${tool.iconBg}`}

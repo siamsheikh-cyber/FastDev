@@ -28,6 +28,11 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  icons: {
+    icon: "/feardev.jpg",
+    shortcut: "/feardev.jpg",
+    apple: "/feardev.jpg",
+  },
   title: {
     default: "FastDev — Modern Developer & Freelancer Utility Toolkit",
     template: "%s | FastDev",

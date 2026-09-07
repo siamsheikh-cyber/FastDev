@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { Terminal, Heart } from "lucide-react";
+import Image from "next/image";
+import { Heart } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -11,11 +12,16 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand Info */}
           <div className="md:col-span-2 space-y-3">
-            <Link href="/" className="inline-flex items-center gap-2 font-bold text-lg text-slate-900 dark:text-white">
-              <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-indigo-600 text-white shadow-sm">
-                <Terminal className="w-4 h-4" />
+            <Link href="/" className="inline-flex items-center gap-2" aria-label="FearDev Homepage">
+              <div className="relative flex items-center overflow-hidden rounded-xl ring-1 ring-slate-200 dark:ring-slate-800 shadow-xs">
+                <Image
+                  src="/feardev.jpg"
+                  alt="FearDev Logo"
+                  width={130}
+                  height={36}
+                  className="h-8 w-auto object-cover"
+                />
               </div>
-              <span>FastDev</span>
             </Link>
             <p className="text-sm text-slate-600 dark:text-slate-400 max-w-sm">
               An all-in-one developer and freelancer utility toolkit built for fast, secure, client-side productivity. No sign-ups required.
@@ -31,6 +37,11 @@ export function Footer() {
               <li>
                 <Link href="/tools/case-converter" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-medium text-slate-900 dark:text-slate-200">
                   Text Case Converter
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/image-format-converter" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-medium text-slate-900 dark:text-slate-200">
+                  Image Format Converter
                 </Link>
               </li>
               <li>
