@@ -18,7 +18,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const savedTheme = (localStorage.getItem("fastdev-theme") as Theme) || "system";
+    const savedTheme =
+      (localStorage.getItem("feardev-theme") as Theme) ||
+      (localStorage.getItem("fastdev-theme") as Theme) ||
+      "system";
     setTheme(savedTheme);
     setMounted(true);
   }, []);
@@ -49,7 +52,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     };
 
     applyTheme();
-    localStorage.setItem("fastdev-theme", theme);
+    localStorage.setItem("feardev-theme", theme);
 
     const handleChange = () => {
       if (theme === "system") {

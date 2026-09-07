@@ -18,10 +18,10 @@ import {
   Code2,
 } from "lucide-react";
 
-const pageUrl = "https://fastdev.tools/tools/image-to-text";
+const pageUrl = "https://feardev.vercel.app/tools/image-to-text";
 
 export const metadata: Metadata = {
-  title: "Free Image to Text Converter (OCR) Online | FastDev",
+  title: "Free Image to Text Converter (OCR) Online | FearDev",
   description:
     "Extract clean text and code snippets from images, screenshots, and scanned documents in your browser. Free, client-side Optical Character Recognition (OCR) with zero server uploads.",
   keywords: [
@@ -33,34 +33,33 @@ export const metadata: Metadata = {
     "client side ocr",
     "tesseract js ocr",
     "photo to text converter",
-    "fastdev tools",
+    "feardev tools",
   ],
   alternates: {
     canonical: pageUrl,
   },
   openGraph: {
-    title: "Free Image to Text Converter (OCR) Online | FastDev",
+    title: "Free Image to Text Converter (OCR) Online | FearDev",
     description:
       "Convert PNG, JPG, and WEBP images into editable text instantly with 100% private in-browser OCR.",
     url: pageUrl,
     type: "website",
-    siteName: "FastDev",
+    siteName: "FearDev",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "FastDev Image to Text OCR Converter",
+        alt: "FearDev Image to Text OCR Converter",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Image to Text Converter (OCR) Online | FastDev",
+    title: "Free Image to Text Converter (OCR) Online | FearDev",
     description:
       "Fast, private in-browser OCR to extract text from images and screenshots without server uploads.",
     images: ["/og-image.png"],
-    creator: "@fastdev_tools",
   },
 };
 
@@ -146,7 +145,7 @@ export default function ImageToTextPage() {
   const faqs = [
     {
       q: "Is my image uploaded to any server?",
-      a: "No. FastDev performs all OCR computations entirely inside your browser using WebAssembly. Your images never leave your computer or smartphone.",
+      a: "No. FearDev performs all OCR computations entirely inside your browser using WebAssembly. Your images never leave your computer or smartphone.",
     },
     {
       q: "What image formats are supported?",
@@ -154,7 +153,7 @@ export default function ImageToTextPage() {
     },
     {
       q: "Can I extract code snippets from video tutorials or screenshots?",
-      a: "Yes! Simply take a screenshot of the code or terminal window and drop it here. FastDev will convert the characters into copyable plain text.",
+      a: "Yes! Simply take a screenshot of the code or terminal window and drop it here. FearDev will convert the characters into copyable plain text.",
     },
     {
       q: "Is this OCR tool completely free to use?",
@@ -233,7 +232,7 @@ export default function ImageToTextPage() {
             Eliminate Repetitive Retyping with Instant In-Browser OCR
           </h2>
           <p className="text-slate-600 dark:text-slate-300 leading-relaxed max-w-4xl text-base sm:text-lg">
-            Retyping long text from client screenshots, error stack traces, wireframe mocks, or scanned PDF pages wastes valuable engineering time. FastDev OCR transforms visual images into clean, editable text in seconds—saving you hours of manual transcription while keeping confidential project assets 100% confidential.
+            Retyping long text from client screenshots, error stack traces, wireframe mocks, or scanned PDF pages wastes valuable engineering time. FearDev OCR transforms visual images into clean, editable text in seconds—saving you hours of manual transcription while keeping confidential project assets 100% confidential.
           </p>
         </section>
 
@@ -337,7 +336,7 @@ export default function ImageToTextPage() {
         {/* CTA Banner */}
         <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-r from-indigo-900 via-slate-900 to-indigo-950 p-8 sm:p-10 text-white text-center space-y-4 shadow-xl">
           <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-            Explore More FastDev Developer & Freelancer Tools
+            Explore More FearDev Developer & Freelancer Tools
           </h2>
           <p className="text-indigo-200 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
             Check out our Case Converter and Fiverr/Upwork Restricted Word Checker to streamline your daily workflow.

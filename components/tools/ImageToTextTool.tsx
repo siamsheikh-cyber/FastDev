@@ -195,7 +195,7 @@ export function ImageToTextTool() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `fastdev-ocr-${Date.now()}.txt`;
+    link.download = `feardev-ocr-${Date.now()}.txt`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -217,7 +217,7 @@ export function ImageToTextTool() {
     // Text content
     ctx.fillStyle = "#38bdf8";
     ctx.font = "bold 24px monospace";
-    ctx.fillText("// FastDev OCR Test Code", 30, 50);
+    ctx.fillText("// FearDev OCR Test Code", 30, 50);
 
     ctx.fillStyle = "#f8fafc";
     ctx.font = "18px monospace";
@@ -228,7 +228,7 @@ export function ImageToTextTool() {
 
     ctx.fillStyle = "#94a3b8";
     ctx.font = "italic 16px sans-serif";
-    ctx.fillText("FastDev Instant In-Browser OCR Extraction", 30, 250);
+    ctx.fillText("FearDev Instant In-Browser OCR Extraction", 30, 250);
 
     canvas.toBlob((blob) => {
       if (blob) {
@@ -326,18 +326,16 @@ export function ImageToTextTool() {
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
               onClick={() => fileInputRef.current?.click()}
-              className={`relative flex flex-col items-center justify-center p-8 sm:p-12 rounded-2xl border-2 border-dashed transition-all duration-200 cursor-pointer text-center group ${
-                isDragOver
+              className={`relative flex flex-col items-center justify-center p-8 sm:p-12 rounded-2xl border-2 border-dashed transition-all duration-200 cursor-pointer text-center group ${isDragOver
                   ? "border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 ring-4 ring-indigo-500/20 scale-[0.99]"
                   : "border-slate-300 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950/40 hover:border-indigo-400 dark:hover:border-indigo-500/60 hover:bg-slate-100/60 dark:hover:bg-slate-900/60"
-              }`}
+                }`}
             >
               <div
-                className={`flex items-center justify-center w-16 h-16 rounded-2xl mb-4 transition-all duration-200 ${
-                  isDragOver
+                className={`flex items-center justify-center w-16 h-16 rounded-2xl mb-4 transition-all duration-200 ${isDragOver
                     ? "bg-indigo-600 text-white scale-110 shadow-lg shadow-indigo-600/30"
                     : "bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 group-hover:scale-105 group-hover:bg-indigo-600 group-hover:text-white"
-                }`}
+                  }`}
               >
                 <UploadCloud className="w-8 h-8" />
               </div>
@@ -407,7 +405,7 @@ export function ImageToTextTool() {
                       className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700/80 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer shadow-xs"
                     >
                       <ImageIcon className="w-3.5 h-3.5 text-indigo-500" />
-                      <span>Change Image</span>
+                      <span>New Image</span>
                     </button>
 
                     <button

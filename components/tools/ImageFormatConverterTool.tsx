@@ -20,7 +20,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 
-type SupportedOutputFormat = "webp" | "jpeg" | "png";
+type SupportedOutputFormat = "webp" | "jpeg" | "png" | "avif";
 
 interface OriginalImageState {
   file: File;
@@ -37,6 +37,8 @@ interface ConvertedImageState {
   size: number;
   previewUrl: string;
   format: SupportedOutputFormat;
+  /** True if the browser silently fell back from AVIF to another format */
+  avifFallbackDetected?: boolean;
   quality: number;
   filename: string;
   dimensions: { width: number; height: number };
@@ -52,6 +54,8 @@ export function ImageFormatConverterTool() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
   const [downloadSuccess, setDownloadSuccess] = useState<boolean>(false);
+  // null = detection pending, true = supported, false = not supported
+  const [avifSupported, setAvifSupported] = useState<boolean | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -66,6 +70,29 @@ export function ImageFormatConverterTool() {
     if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
     return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
   };
+
+  // Detect AVIF encoding support on mount.
+  // Strategy: encode a tiny 1×1 canvas as AVIF; if the browser
+  // silently falls back it returns a PNG/JPEG blob that is notably
+  // larger than a real AVIF blob for the same 1-px image, OR the
+  // blob's type won't be "image/avif". We read the blob type to decide.
+  useEffect(() => {
+    const testCanvas = document.createElement("canvas");
+    testCanvas.width = 1;
+    testCanvas.height = 1;
+    const ctx = testCanvas.getContext("2d");
+    if (!ctx) { setAvifSupported(false); return; }
+    ctx.fillStyle = "#ff0000";
+    ctx.fillRect(0, 0, 1, 1);
+    testCanvas.toBlob((blob) => {
+      // If blob is null or the MIME type is not image/avif, browser doesn't support it.
+      if (blob && blob.type === "image/avif") {
+        setAvifSupported(true);
+      } else {
+        setAvifSupported(false);
+      }
+    }, "image/avif");
+  }, []);
 
   // Convert canvas to blob using native Canvas API
   const performConversion = useCallback(
@@ -116,6 +143,8 @@ export function ImageFormatConverterTool() {
             ? "image/jpeg"
             : format === "webp"
             ? "image/webp"
+            : format === "avif"
+            ? "image/avif"
             : "image/png";
 
         const qualityFraction = format === "png" ? undefined : Math.max(0.01, Math.min(1, q / 100));
@@ -131,6 +160,12 @@ export function ImageFormatConverterTool() {
         if (!blob) {
           throw new Error(`Browser failed to generate ${format.toUpperCase()} blob.`);
         }
+
+        // Detect AVIF silent fallback: browser may accept the mime type but
+        // produce a PNG/JPEG blob instead. If the resulting blob type doesn't
+        // match the requested mime, flag it so the UI can warn the user.
+        const avifFallbackDetected =
+          format === "avif" && blob.type !== "image/avif";
 
         // Revoke previous converted blob URL to avoid memory leak.
         // Use a ref so we don't need convertedImage in the useCallback deps
@@ -153,6 +188,7 @@ export function ImageFormatConverterTool() {
           quality: q,
           filename: newFilename,
           dimensions: { width, height },
+          avifFallbackDetected,
         });
       } catch (err: unknown) {
         console.error("Conversion error:", err);
@@ -350,7 +386,7 @@ export function ImageFormatConverterTool() {
 
     ctx.fillStyle = "#94a3b8";
     ctx.font = "20px monospace";
-    ctx.fillText("Client-Side Canvas Processing • Zero Cloud Uploads • Instant WEBP / JPEG / PNG", 100, 390);
+    ctx.fillText("Client-Side Canvas Processing • Zero Cloud Uploads • WEBP / AVIF / JPEG / PNG", 100, 390);
 
     // Badge preview box
     ctx.fillStyle = "rgba(255, 255, 255, 0.08)";
@@ -554,44 +590,69 @@ export function ImageFormatConverterTool() {
                   <Layers className="w-3.5 h-3.5 text-indigo-500" />
                   <span>Target Output Format</span>
                 </label>
-                <div className="grid grid-cols-3 gap-2">
-                  {[
-                    { id: "webp", label: "WEBP", subtitle: "Best for Web (Smallest)", badge: "Recommended" },
-                    { id: "jpeg", label: "JPEG", subtitle: "Universal Photos", badge: "Compressed" },
-                    { id: "png", label: "PNG", subtitle: "Lossless + Transparent", badge: "Lossless" },
-                  ].map((fmt) => {
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  {([
+                    { id: "webp", label: "WEBP", subtitle: "Best for Web", badge: "Recommended", avifOnly: false },
+                    { id: "avif", label: "AVIF", subtitle: "Next-Gen Efficient", badge: "Modern", avifOnly: true },
+                    { id: "jpeg", label: "JPEG", subtitle: "Universal Photos", badge: "Compressed", avifOnly: false },
+                    { id: "png", label: "PNG", subtitle: "Lossless + Alpha", badge: "Lossless", avifOnly: false },
+                  ] as const).map((fmt) => {
                     const isSelected = targetFormat === fmt.id;
+                    const isAvifOption = fmt.id === "avif";
+                    // Disable AVIF if support check is done and result is false.
+                    // While pending (null) keep it enabled so users aren't blocked.
+                    const isDisabled = isAvifOption && avifSupported === false;
                     return (
-                      <button
-                        key={fmt.id}
-                        type="button"
-                        onClick={() => setTargetFormat(fmt.id as SupportedOutputFormat)}
-                        className={`relative p-3 rounded-2xl border text-left transition-all duration-150 ${
-                          isSelected
-                            ? "bg-indigo-50/90 dark:bg-indigo-950/70 border-indigo-500 dark:border-indigo-500 ring-2 ring-indigo-500/20 shadow-xs"
-                            : "bg-slate-50/80 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-300"
-                        }`}
-                      >
-                        <div className="flex items-center justify-between mb-1">
-                          <span className={`text-sm font-bold ${isSelected ? "text-indigo-600 dark:text-indigo-400" : "text-slate-900 dark:text-white"}`}>
-                            {fmt.label}
-                          </span>
-                          {isSelected && (
-                            <span className="w-4 h-4 rounded-full bg-indigo-600 text-white flex items-center justify-center">
-                              <Check className="w-2.5 h-2.5" />
+                      <div key={fmt.id} className="relative group/fmt">
+                        <button
+                          type="button"
+                          disabled={isDisabled}
+                          onClick={() => !isDisabled && setTargetFormat(fmt.id as SupportedOutputFormat)}
+                          className={`w-full relative p-3 rounded-2xl border text-left transition-all duration-150 ${
+                            isDisabled
+                              ? "opacity-40 cursor-not-allowed bg-slate-50/60 dark:bg-slate-900/30 border-slate-200 dark:border-slate-800"
+                              : isSelected
+                              ? "bg-indigo-50/90 dark:bg-indigo-950/70 border-indigo-500 dark:border-indigo-500 ring-2 ring-indigo-500/20 shadow-xs"
+                              : "bg-slate-50/80 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-300"
+                          }`}
+                        >
+                          <div className="flex items-center justify-between mb-1">
+                            <span className={`text-sm font-bold ${
+                              isDisabled
+                                ? "text-slate-400 dark:text-slate-600"
+                                : isSelected
+                                ? "text-indigo-600 dark:text-indigo-400"
+                                : "text-slate-900 dark:text-white"
+                            }`}>
+                              {fmt.label}
                             </span>
-                          )}
-                        </div>
-                        <span className="text-[10px] block text-slate-500 dark:text-slate-400 font-medium">
-                          {fmt.subtitle}
-                        </span>
-                      </button>
+                            {isSelected && !isDisabled && (
+                              <span className="w-4 h-4 rounded-full bg-indigo-600 text-white flex items-center justify-center">
+                                <Check className="w-2.5 h-2.5" />
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-[10px] block text-slate-500 dark:text-slate-400 font-medium leading-tight">
+                            {isDisabled ? "Not supported in your browser" : fmt.subtitle}
+                          </span>
+                        </button>
+
+                        {/* AVIF unsupported tooltip */}
+                        {isAvifOption && isDisabled && (
+                          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-20 pointer-events-none hidden group-hover/fmt:block">
+                            <div className="bg-slate-900 dark:bg-slate-700 text-white text-[10px] font-medium leading-snug px-3 py-2 rounded-xl shadow-xl w-44 text-center">
+                              AVIF encoding is not supported in your browser. Try Chrome 85+ or Edge 85+. Use <strong>WEBP</strong> instead.
+                              <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900 dark:border-t-slate-700" />
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     );
                   })}
                 </div>
               </div>
 
-              {/* Quality Slider (for WEBP and JPEG) */}
+              {/* Quality Slider (for WEBP, AVIF and JPEG) */}
               <div className="md:col-span-6 space-y-2">
                 {targetFormat !== "png" ? (
                   <div className="p-3.5 rounded-2xl bg-slate-50/80 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 space-y-2.5">
@@ -743,7 +804,7 @@ export function ImageFormatConverterTool() {
               </div>
 
               {/* Converted Preview Frame */}
-              <div className="relative flex-1 min-h-[260px] sm:min-h-[320px] max-h-[420px] bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] bg-slate-100/50 dark:bg-slate-950/50 flex items-center justify-center p-4 overflow-hidden">
+              <div className="relative flex-1 min-h-[260px] sm:min-h-[320px] max-h-[420px] bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] bg-slate-100/50 dark:bg-slate-950/50 flex flex-col items-center justify-center p-4 overflow-hidden gap-3">
                 {isConverting ? (
                   <div className="flex flex-col items-center gap-3 text-indigo-600 dark:text-indigo-400">
                     <div className="w-10 h-10 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin" />
@@ -754,9 +815,20 @@ export function ImageFormatConverterTool() {
                   <img
                     src={convertedImage.previewUrl}
                     alt={`Converted ${targetFormat} preview`}
-                    className="max-h-[300px] w-auto max-w-full object-contain rounded-xl shadow-md animate-in fade-in duration-150"
+                    className="max-h-[270px] w-auto max-w-full object-contain rounded-xl shadow-md animate-in fade-in duration-150"
                   />
                 ) : null}
+
+                {/* AVIF silent-fallback warning: browser accepted the call but produced a different format */}
+                {!isConverting && convertedImage?.avifFallbackDetected && (
+                  <div className="w-full flex items-start gap-2.5 p-3 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-300 dark:border-amber-800 text-amber-800 dark:text-amber-200 animate-in fade-in duration-200">
+                    <AlertTriangle className="w-4 h-4 shrink-0 text-amber-500 mt-0.5" />
+                    <div className="text-[11px] leading-snug">
+                      <strong className="font-bold block mb-0.5">AVIF encoding failed silently</strong>
+                      Your browser accepted the AVIF request but produced a different format instead. The downloaded file may not be a real AVIF. Switch to <button type="button" className="underline font-semibold" onClick={() => setTargetFormat("webp")}>WEBP</button> for guaranteed compatibility.
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Download Action Footer */}

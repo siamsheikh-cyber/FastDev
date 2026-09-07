@@ -120,7 +120,7 @@ export function CaseConverterTool() {
 
   const loadSampleText = () => {
     const sample =
-      "fastdev text case converter helps developers, freelancers, and content creators format strings with ease. it instantly transforms titles, code identifiers, and client messages into consistent letter casing!";
+      "feardev text case converter helps developers, freelancers, and content creators format strings with ease. it instantly transforms titles, code identifiers, and client messages into consistent letter casing!";
     setText(sample);
     setActiveCase(null);
   };

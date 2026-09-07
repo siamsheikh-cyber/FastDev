@@ -14,10 +14,10 @@ import {
   Code2,
 } from "lucide-react";
 
-const pageUrl = "https://fastdev.tools/tools/case-converter";
+const pageUrl = "https://feardev.vercel.app/tools/case-converter";
 
 export const metadata: Metadata = {
-  title: "Free Online Text Case Converter – Uppercase, Lowercase, Title Case",
+  title: "Free Online Text Case Converter – Uppercase, Lowercase, Title Case | FearDev",
   description:
     "Instantly convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, and slug formats online. Free, fast, privacy-friendly text transformer for developers, freelancers, and writers.",
   keywords: [
@@ -30,34 +30,33 @@ export const metadata: Metadata = {
     "camelCase converter",
     "snake_case generator",
     "online text formatter",
-    "fastdev tools",
+    "feardev tools",
   ],
   alternates: {
     canonical: pageUrl,
   },
   openGraph: {
-    title: "Free Online Text Case Converter – Uppercase, Lowercase, Title Case | FastDev",
+    title: "Free Online Text Case Converter – Uppercase, Lowercase, Title Case | FearDev",
     description:
       "Transform strings, headings, and code identifiers into any text case instantly. 100% free and client-side private.",
     url: pageUrl,
     type: "website",
-    siteName: "FastDev",
+    siteName: "FearDev",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "FastDev Text Case Converter",
+        alt: "FearDev Text Case Converter",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Online Text Case Converter – Uppercase, Lowercase, Title Case | FastDev",
+    title: "Free Online Text Case Converter – Uppercase, Lowercase, Title Case | FearDev",
     description:
       "Transform text between UPPERCASE, lowercase, Title Case, Sentence case, and camelCase with live character counters.",
     images: ["/og-image.png"],
-    creator: "@fastdev_tools",
   },
 };
 
@@ -165,7 +164,7 @@ export default function CaseConverterPage() {
           </h1>
 
           {/*  <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">
-            FastDev Text Case Converter is a high-speed string transformation tool tailored for developers, freelancers, and content writers. Convert text between UPPERCASE, lowercase, Title Case, Sentence case, and programming identifier cases with instant client-side execution and zero data collection.
+            FearDev Text Case Converter is a high-speed string transformation tool tailored for developers, freelancers, and content writers. Convert text between UPPERCASE, lowercase, Title Case, Sentence case, and programming identifier cases with instant client-side execution and zero data collection.
           </p> */}
         </header>
 
@@ -237,7 +236,7 @@ export default function CaseConverterPage() {
                 For developers and designers, transforming human-readable titles into clean code constants (<code className="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400">CONSTANT_CASE</code>), camelCase variables, or URL slugs is essential for clean codebase architecture and SEO consistency.
               </p>
               <p>
-                FastDev executes all text operations directly in your browser with zero network transmission, providing guaranteed privacy and instantaneous performance.
+                FearDev executes all text operations directly in your browser with zero network transmission, providing guaranteed privacy and instantaneous performance.
               </p>
 
               <div className="pt-3 border-t border-slate-100 dark:border-slate-800/80 grid grid-cols-2 gap-2 text-xs font-medium text-slate-700 dark:text-slate-300">

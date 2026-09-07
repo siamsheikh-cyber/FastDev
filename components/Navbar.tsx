@@ -30,44 +30,62 @@ interface ToolItem {
   iconBg: string;
 }
 
-const toolItems: ToolItem[] = [
+interface ToolSection {
+  title: string;
+  items: ToolItem[];
+}
+
+const toolSections: ToolSection[] = [
   {
-    name: "Text Case Converter",
-    href: "/tools/case-converter",
-    description: "Transform camelCase, snake_case, UPPERCASE & more",
-    icon: Type,
-    badge: "Live",
-    badgeColor: "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border-blue-200 dark:border-blue-800/60",
-    iconBg: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20",
+    title: "Text Tools",
+    items: [
+      {
+        name: "Text Case Converter",
+        href: "/tools/case-converter",
+        description: "Transform camelCase, snake_case, UPPERCASE & more",
+        icon: Type,
+        badge: "Live",
+        badgeColor: "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border-blue-200 dark:border-blue-800/60",
+        iconBg: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20",
+      },
+      {
+        name: "Fiverr/Upwork Word Checker",
+        href: "/tools/fiverr-word-checker",
+        description: "Detect forbidden TOS terms & contact sharing triggers",
+        icon: ShieldCheck,
+        badge: "Compliance",
+        badgeColor: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/60",
+        iconBg: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20",
+      },
+    ],
   },
   {
-    name: "Image Format Converter",
-    href: "/tools/image-format-converter",
-    description: "Convert JPG, PNG, WEBP with custom quality & compression",
-    icon: ImageIcon,
-    badge: "New",
-    badgeColor: "bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800/60",
-    iconBg: "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20",
-  },
-  {
-    name: "Image to Text (OCR)",
-    href: "/tools/image-to-text",
-    description: "Extract text and code snippets from images in browser",
-    icon: FileScan,
-    badge: "OCR",
-    badgeColor: "bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800/60",
-    iconBg: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20",
-  },
-  {
-    name: "Fiverr/Upwork Word Checker",
-    href: "/tools/fiverr-word-checker",
-    description: "Detect forbidden TOS terms & contact sharing triggers",
-    icon: ShieldCheck,
-    badge: "Compliance",
-    badgeColor: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/60",
-    iconBg: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20",
+    title: "Image Tools",
+    items: [
+      {
+        name: "Image to Text (OCR)",
+        href: "/tools/image-to-text",
+        description: "Extract text and code snippets from images in browser",
+        icon: FileScan,
+        badge: "OCR",
+        badgeColor: "bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800/60",
+        iconBg: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20",
+      },
+      {
+        name: "Image Format Converter",
+        href: "/tools/image-format-converter",
+        description: "Convert JPG, PNG, WEBP with custom quality & compression",
+        icon: ImageIcon,
+        badge: "New",
+        badgeColor: "bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800/60",
+        iconBg: "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20",
+      },
+    ],
   },
 ];
+
+// Flat list for indexing and counts
+const allToolItems: ToolItem[] = toolSections.flatMap((section) => section.items);
 
 export function Navbar() {
   const pathname = usePathname();
@@ -116,7 +134,7 @@ export function Navbar() {
         const activeIndex = menuItemsRef.current.findIndex(
           (el) => el === document.activeElement
         );
-        const nextIndex = activeIndex < toolItems.length - 1 ? activeIndex + 1 : 0;
+        const nextIndex = activeIndex < allToolItems.length - 1 ? activeIndex + 1 : 0;
         menuItemsRef.current[nextIndex]?.focus();
       }
     } else if (event.key === "ArrowUp") {
@@ -125,7 +143,7 @@ export function Navbar() {
         const activeIndex = menuItemsRef.current.findIndex(
           (el) => el === document.activeElement
         );
-        const prevIndex = activeIndex > 0 ? activeIndex - 1 : toolItems.length - 1;
+        const prevIndex = activeIndex > 0 ? activeIndex - 1 : allToolItems.length - 1;
         menuItemsRef.current[prevIndex]?.focus();
       }
     }
@@ -155,6 +173,8 @@ export function Navbar() {
       setDropdownOpen(false);
     }
   };
+
+  let itemCounter = 0;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md transition-colors">
@@ -225,62 +245,77 @@ export function Navbar() {
                     : "opacity-0 scale-95 -translate-y-1 pointer-events-none invisible"
                     }`}
                 >
-                  <div className="rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl p-2 shadow-xl shadow-slate-900/10 dark:shadow-2xl dark:shadow-black/50 ring-1 ring-black/5 dark:ring-white/5 space-y-1">
+                  <div className="rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl p-2 shadow-xl shadow-slate-900/10 dark:shadow-2xl dark:shadow-black/50 ring-1 ring-black/5 dark:ring-white/5 space-y-1 max-h-[85vh] overflow-y-auto">
                     <div className="px-3 py-1.5 flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80">
-                      <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                      <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400">
                         Productivity Suite
                       </span>
                       <span className="text-[11px] font-medium text-indigo-600 dark:text-indigo-400">
-                        {toolItems.length} Tools
+                        {allToolItems.length} Tools
                       </span>
                     </div>
 
-                    <div className="pt-1 space-y-1">
-                      {toolItems.map((tool, index) => {
-                        const Icon = tool.icon;
-                        const isCurrent = pathname === tool.href;
+                    <div className="py-1">
+                      {toolSections.map((section, sIndex) => (
+                        <div
+                          key={section.title}
+                          className={sIndex > 0 ? "pt-2 mt-2 border-t border-slate-100 dark:border-slate-800/80" : ""}
+                        >
+                          {/* Non-clickable section label */}
+                          <div className="px-3 pb-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 select-none">
+                            {section.title}
+                          </div>
 
-                        return (
-                          <Link
-                            key={tool.name}
-                            ref={(el) => {
-                              menuItemsRef.current[index] = el;
-                            }}
-                            href={tool.href}
-                            role="menuitem"
-                            tabIndex={dropdownOpen ? 0 : -1}
-                            onClick={() => setDropdownOpen(false)}
-                            className={`group flex items-start gap-3 p-2.5 rounded-xl transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:focus-visible:ring-indigo-400 ${isCurrent
-                              ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
-                              : "hover:bg-slate-100/90 dark:hover:bg-slate-800/70 text-slate-700 dark:text-slate-200"
-                              }`}
-                          >
-                            <div
-                              className={`flex items-center justify-center w-9 h-9 rounded-xl shrink-0 transition-transform group-hover:scale-105 ${tool.iconBg}`}
-                            >
-                              <Icon className="w-4 h-4" />
-                            </div>
+                          <div className="space-y-1">
+                            {section.items.map((tool) => {
+                              const currentIndex = itemCounter++;
+                              const Icon = tool.icon;
+                              const isCurrent = pathname === tool.href;
 
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center justify-between gap-1.5 mb-0.5">
-                                <span className="text-sm font-semibold truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                                  {tool.name}
-                                </span>
-                                {tool.badge && (
-                                  <span
-                                    className={`text-[10px] font-semibold px-1.5 py-0.2 rounded-full border shrink-0 ${tool.badgeColor}`}
+                              return (
+                                <Link
+                                  key={tool.name}
+                                  ref={(el) => {
+                                    menuItemsRef.current[currentIndex] = el;
+                                  }}
+                                  href={tool.href}
+                                  role="menuitem"
+                                  tabIndex={dropdownOpen ? 0 : -1}
+                                  onClick={() => setDropdownOpen(false)}
+                                  className={`group flex items-start gap-3 p-2.5 rounded-xl transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:focus-visible:ring-indigo-400 ${isCurrent
+                                    ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
+                                    : "hover:bg-slate-100/90 dark:hover:bg-slate-800/70 text-slate-700 dark:text-slate-200"
+                                    }`}
+                                >
+                                  <div
+                                    className={`flex items-center justify-center w-9 h-9 rounded-xl shrink-0 transition-transform group-hover:scale-105 ${tool.iconBg}`}
                                   >
-                                    {tool.badge}
-                                  </span>
-                                )}
-                              </div>
-                              <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1 leading-relaxed">
-                                {tool.description}
-                              </p>
-                            </div>
-                          </Link>
-                        );
-                      })}
+                                    <Icon className="w-4 h-4" />
+                                  </div>
+
+                                  <div className="flex-1 min-w-0">
+                                    <div className="flex items-center justify-between gap-1.5 mb-0.5">
+                                      <span className="text-sm font-semibold truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                        {tool.name}
+                                      </span>
+                                      {tool.badge && (
+                                        <span
+                                          className={`text-[10px] font-semibold px-1.5 py-0.2 rounded-full border shrink-0 ${tool.badgeColor}`}
+                                        >
+                                          {tool.badge}
+                                        </span>
+                                      )}
+                                    </div>
+                                    <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1 leading-relaxed">
+                                      {tool.description}
+                                    </p>
+                                  </div>
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ))}
                     </div>
 
                     <div className="pt-1.5 border-t border-slate-100 dark:border-slate-800/80">
@@ -320,7 +355,7 @@ export function Navbar() {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 pt-3 pb-5 space-y-3 transition-colors animate-in fade-in slide-in-from-top-2 duration-150">
+        <div className="md:hidden max-h-[calc(100vh-4rem)] overflow-y-auto border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 pt-3 pb-5 space-y-3 transition-colors animate-in fade-in slide-in-from-top-2 duration-150">
           {/* Mobile All Tools Collapsible / Section */}
           <div className="rounded-2xl border border-slate-200 dark:border-slate-800/90 bg-slate-50/70 dark:bg-slate-900/60 p-3 space-y-2">
             <button
@@ -330,7 +365,7 @@ export function Navbar() {
             >
               <div className="flex items-center gap-2">
                 <Layers className="w-4 h-4 text-indigo-500" />
-                <span>All Tools ({toolItems.length})</span>
+                <span>All Tools ({allToolItems.length})</span>
               </div>
               <ChevronDown
                 className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${mobileToolsExpanded ? "rotate-180" : ""
@@ -339,48 +374,62 @@ export function Navbar() {
             </button>
 
             {mobileToolsExpanded && (
-              <div className="space-y-1.5 pt-1">
-                {toolItems.map((tool) => {
-                  const Icon = tool.icon;
-                  const isCurrent = pathname === tool.href;
+              <div className="space-y-3 pt-1">
+                {toolSections.map((section, sIdx) => (
+                  <div
+                    key={section.title}
+                    className={sIdx > 0 ? "pt-2.5 border-t border-slate-200/80 dark:border-slate-800/80" : ""}
+                  >
+                    {/* Non-clickable section label */}
+                    <div className="px-2 pb-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 select-none">
+                      {section.title}
+                    </div>
 
-                  return (
-                    <Link
-                      key={tool.name}
-                      href={tool.href}
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                      }}
-                      className={`flex items-start gap-3 p-2.5 rounded-xl transition-colors ${isCurrent
-                        ? "bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200/70 dark:border-indigo-800/70"
-                        : "bg-white dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-800 dark:text-slate-200"
-                        }`}
-                    >
-                      <div
-                        className={`flex items-center justify-center w-8 h-8 rounded-lg shrink-0 ${tool.iconBg}`}
-                      >
-                        <Icon className="w-4 h-4" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between gap-1">
-                          <span className="text-sm font-semibold truncate">
-                            {tool.name}
-                          </span>
-                          {tool.badge && (
-                            <span
-                              className={`text-[9px] font-bold px-1.5 py-0.2 rounded-full border shrink-0 ${tool.badgeColor}`}
+                    <div className="space-y-1.5">
+                      {section.items.map((tool) => {
+                        const Icon = tool.icon;
+                        const isCurrent = pathname === tool.href;
+
+                        return (
+                          <Link
+                            key={tool.name}
+                            href={tool.href}
+                            onClick={() => {
+                              setMobileMenuOpen(false);
+                            }}
+                            className={`flex items-start gap-3 p-2.5 rounded-xl transition-colors ${isCurrent
+                              ? "bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200/70 dark:border-indigo-800/70"
+                              : "bg-white dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-800 dark:text-slate-200"
+                              }`}
+                          >
+                            <div
+                              className={`flex items-center justify-center w-8 h-8 rounded-lg shrink-0 ${tool.iconBg}`}
                             >
-                              {tool.badge}
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
-                          {tool.description}
-                        </p>
-                      </div>
-                    </Link>
-                  );
-                })}
+                              <Icon className="w-4 h-4" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between gap-1">
+                                <span className="text-sm font-semibold truncate">
+                                  {tool.name}
+                                </span>
+                                {tool.badge && (
+                                  <span
+                                    className={`text-[9px] font-bold px-1.5 py-0.2 rounded-full border shrink-0 ${tool.badgeColor}`}
+                                  >
+                                    {tool.badge}
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
+                                {tool.description}
+                              </p>
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
           </div>

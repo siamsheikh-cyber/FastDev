@@ -20,7 +20,7 @@ import {
   FileSpreadsheet,
 } from "lucide-react";
 
-const pageUrl = "https://fastdev.tools/tools/image-format-converter";
+const pageUrl = "https://feardev.vercel.app/tools/image-format-converter";
 
 export const metadata: Metadata = {
   title: "Free Online Image Format Converter – JPEG, PNG, WEBP | FearDev",
@@ -63,7 +63,6 @@ export const metadata: Metadata = {
     description:
       "Fast, private in-browser image format converter. Convert between PNG, JPEG, and WEBP without server uploads.",
     images: ["/og-image.png"],
-    creator: "@feardev_tools",
   },
 };
 
@@ -104,7 +103,7 @@ export default function ImageFormatConverterPage() {
       step: "02",
       title: "Choose Target Output Format",
       description:
-        "Select your preferred output format: WEBP for modern high-efficiency web delivery, PNG for lossless graphics with transparency, or JPEG for universal photo compatibility.",
+        "Select your preferred output format: WEBP for modern high-efficiency web delivery, AVIF for next-generation extreme compression (Chrome/Edge), PNG for lossless graphics with transparency, or JPEG for universal photo compatibility.",
     },
     {
       step: "03",
@@ -121,6 +120,13 @@ export default function ImageFormatConverterPage() {
   ];
 
   const formatComparison = [
+    {
+      format: "AVIF",
+      transparency: "Yes (Full Alpha)",
+      compression: "Lossy & Lossless AV1",
+      fileSize: "Ultra-Smallest (50% lighter than WEBP)",
+      bestFor: "Next-gen web images where browser support is confirmed (Chrome, Edge, Firefox)",
+    },
     {
       format: "WEBP",
       transparency: "Yes (Full Alpha)",
@@ -258,17 +264,28 @@ export default function ImageFormatConverterPage() {
               Choosing the right file format can drastically reduce bandwidth usage, enhance user experience, and protect confidential assets.
             </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
             <div className="p-6 rounded-3xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
               <div className="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
                 <Zap className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                Faster Page Speeds & SEO
+                Faster Page Speeds &amp; SEO
               </h3>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 Converting heavy PNG screenshots and graphics to modern WEBP format cuts file weight by 30% to 80% with near-zero perceptual loss. Lighter pages load instantly, improving Google Core Web Vitals and organic rankings.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-3xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+              <div className="w-10 h-10 rounded-2xl bg-violet-50 dark:bg-violet-950/80 text-violet-600 dark:text-violet-400 flex items-center justify-center">
+                <Sparkles className="w-5 h-5" />
+              </div>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                AVIF: Next-Gen Efficiency
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                AVIF (AV1 Image File Format) offers 20–50% smaller file sizes than WEBP and up to 10× compression gains over JPEG at the same visual quality. Browser support is growing rapidly — Chrome 85+, Firefox 93+, and Edge 121+ already ship native AVIF encoding support.
               </p>
             </div>
 
@@ -306,7 +323,7 @@ export default function ImageFormatConverterPage() {
               <span>Image Format Comparison Guide</span>
             </h2>
             <p className="text-sm text-slate-600 dark:text-slate-400">
-              Quick breakdown of JPEG vs PNG vs WEBP features, transparency support, and optimal use cases.
+              Quick breakdown of JPEG, PNG, WEBP, and AVIF features, transparency support, browser encoding support, and optimal use cases.
             </p>
           </div>
 

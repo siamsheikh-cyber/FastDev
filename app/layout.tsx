@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fastdev.tools";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://feardev.vercel.app";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -34,11 +34,11 @@ export const metadata: Metadata = {
     apple: "/feardev.jpg",
   },
   title: {
-    default: "FastDev — Modern Developer & Freelancer Utility Toolkit",
-    template: "%s | FastDev",
+    default: "FearDev — Modern Developer & Freelancer Utility Toolkit",
+    template: "%s | FearDev",
   },
   description:
-    "FastDev is a fast, lightweight, and privacy-focused online toolkit featuring developer utilities, text transformers, OCR image text extractors, and freelancer word checkers.",
+    "FearDev is a fast, lightweight, and privacy-focused online toolkit featuring developer utilities, text transformers, OCR image text extractors, and freelancer word checkers.",
   keywords: [
     "developer tools",
     "freelancer utilities",
@@ -46,14 +46,15 @@ export const metadata: Metadata = {
     "text case transformer",
     "image to text",
     "OCR online",
+    "image format converter",
     "Fiverr word checker",
     "Upwork word checker",
     "online utility toolkit",
-    "fastdev",
+    "feardev",
   ],
-  authors: [{ name: "FastDev Team", url: siteUrl }],
-  creator: "FastDev",
-  publisher: "FastDev",
+  authors: [{ name: "FearDev Team", url: siteUrl }],
+  creator: "FearDev",
+  publisher: "FearDev",
   robots: {
     index: true,
     follow: true,
@@ -69,26 +70,25 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    siteName: "FastDev",
-    title: "FastDev — Modern Developer & Freelancer Utility Toolkit",
+    siteName: "FearDev",
+    title: "FearDev — Modern Developer & Freelancer Utility Toolkit",
     description:
-      "A fast, lightweight, and privacy-focused online toolkit for developers and freelancers. Instant text conversion, OCR tools, and freelance compliance checkers.",
+      "A fast, lightweight, and privacy-focused online toolkit for developers and freelancers. Instant text conversion, OCR tools, format converters, and freelance compliance checkers.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "FastDev Developer Utility Toolkit",
+        alt: "FearDev Developer Utility Toolkit",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "FastDev — Modern Developer & Freelancer Utility Toolkit",
+    title: "FearDev — Modern Developer & Freelancer Utility Toolkit",
     description:
       "A fast, lightweight, and privacy-focused online toolkit for developers and freelancers.",
     images: ["/og-image.png"],
-    creator: "@fastdev_tools",
   },
   alternates: {
     canonical: siteUrl,

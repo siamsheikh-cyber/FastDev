@@ -25,62 +25,74 @@ export const metadata: Metadata = {
   },
 };
 
-const toolList = [
+const toolSections = [
   {
-    id: "image-format-converter",
-    title: "Image Format Converter",
-    category: "Media & Optimization",
-    description:
-      "Convert images between JPEG, PNG, and WEBP formats with custom compression quality, live file size comparisons, and zero cloud uploads.",
-    icon: ImageIcon,
-    status: "New & Live",
-    isAvailable: true,
-    href: "/tools/image-format-converter",
-    gradient: "from-cyan-500 to-indigo-600",
-    badgeColor: "bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800/50",
-    features: ["WEBP, JPEG & PNG output", "Compression quality slider", "Before/After size comparison"],
+    category: "Text Tools",
+    description: "Instant typography transformations and freelance marketplace proposal checks.",
+    tools: [
+      {
+        id: "case-converter",
+        title: "Text Case Converter",
+        category: "Text Utilities",
+        description:
+          "Transform text and variables across camelCase, PascalCase, kebab-case, snake_case, CONSTANT_CASE, sentence case, and clean URL slugs in real-time.",
+        icon: Type,
+        status: "Live & Ready",
+        isAvailable: true,
+        href: "/tools/case-converter",
+        gradient: "from-blue-500 to-indigo-600",
+        badgeColor: "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border-blue-200 dark:border-blue-800/50",
+        features: ["One-click copy", "Multiple programming naming cases", "Bulk line conversion"],
+      },
+      {
+        id: "fiverr-word-checker",
+        title: "Fiverr/Upwork Word Checker",
+        category: "Freelance Suite",
+        description:
+          "Detect forbidden keywords, contact exchange triggers, and terms of service red flags before sending proposals or client messages.",
+        icon: ShieldCheck,
+        status: "Live & Ready",
+        isAvailable: true,
+        href: "/tools/fiverr-word-checker",
+        gradient: "from-emerald-500 to-teal-600",
+        badgeColor: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/50",
+        features: ["Direct contact warnings", "TOS trigger highlight", "Instant safety rating"],
+      },
+    ],
   },
   {
-    id: "case-converter",
-    title: "Text Case Converter",
-    category: "Text Utilities",
-    description:
-      "Transform text and variables across camelCase, PascalCase, kebab-case, snake_case, CONSTANT_CASE, sentence case, and clean URL slugs in real-time.",
-    icon: Type,
-    status: "Live & Ready",
-    isAvailable: true,
-    href: "/tools/case-converter",
-    gradient: "from-blue-500 to-indigo-600",
-    badgeColor: "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border-blue-200 dark:border-blue-800/50",
-    features: ["One-click copy", "Multiple programming naming cases", "Bulk line conversion"],
-  },
-  {
-    id: "image-to-text",
-    title: "Image to Text (OCR)",
-    category: "Media & Vision",
-    description:
-      "Extract editable text and code snippets from screenshots, scans, and images directly in your browser with zero server uploads.",
-    icon: FileScan,
-    status: "Live & Ready",
-    isAvailable: true,
-    href: "/tools/image-to-text",
-    gradient: "from-indigo-500 to-violet-600",
-    badgeColor: "bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800/50",
-    features: ["Local in-browser OCR", "Image drag & drop", "Preserves formatting"],
-  },
-  {
-    id: "fiverr-word-checker",
-    title: "Fiverr/Upwork Word Checker",
-    category: "Freelance Suite",
-    description:
-      "Detect forbidden keywords, contact exchange triggers, and terms of service red flags before sending proposals or client messages.",
-    icon: ShieldCheck,
-    status: "Live & Ready",
-    isAvailable: true,
-    href: "/tools/fiverr-word-checker",
-    gradient: "from-emerald-500 to-teal-600",
-    badgeColor: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/50",
-    features: ["Direct contact warnings", "TOS trigger highlight", "Instant safety rating"],
+    category: "Image Tools",
+    description: "Local in-browser OCR extraction and high-performance format conversion.",
+    tools: [
+      {
+        id: "image-to-text",
+        title: "Image to Text (OCR)",
+        category: "Media & Vision",
+        description:
+          "Extract editable text and code snippets from screenshots, scans, and images directly in your browser with zero server uploads.",
+        icon: FileScan,
+        status: "Live & Ready",
+        isAvailable: true,
+        href: "/tools/image-to-text",
+        gradient: "from-indigo-500 to-violet-600",
+        badgeColor: "bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800/50",
+        features: ["Local in-browser OCR", "Image drag & drop", "Preserves formatting"],
+      },
+      {
+        id: "image-format-converter",
+        title: "Image Format Converter",
+        category: "Media & Optimization",
+        description:
+          "Convert images between JPEG, PNG, and WEBP formats with custom compression quality, live file size comparisons, and zero cloud uploads.",
+        icon: ImageIcon,
+        status: "New & Live",
+        isAvailable: true,
+        href: "/tools/image-format-converter",
+        gradient: "from-cyan-500 to-indigo-600",
+        badgeColor: "bg-cyan-50 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800/50",
+        features: ["WEBP, JPEG & PNG output", "Compression quality slider", "Before/After size comparison"],
+      },
+    ],
   },
 ];
 
@@ -106,10 +118,10 @@ export default function HomePage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "FastDev",
-    url: "https://fastdev.tools",
+    name: "FearDev",
+    url: "https://feardev.vercel.app",
     description:
-      "A developer and freelancer utility toolkit offering Text Case Conversion, OCR Image to Text, and Freelance Marketplace Word Checking.",
+      "A developer and freelancer utility toolkit offering Image Format Conversion, Text Case Conversion, OCR Image to Text, and Freelance Marketplace Word Checking.",
     applicationCategory: "DeveloperApplication",
     operatingSystem: "All",
     offers: {
@@ -190,102 +202,121 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* 3 Tool Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {toolList.map((tool) => {
-              const Icon = tool.icon;
-              return (
-                <div
-                  key={tool.id}
-                  className={`group relative flex flex-col justify-between rounded-2xl border bg-white dark:bg-slate-900/90 p-6 sm:p-7 shadow-sm transition-all duration-300 ${
-                    tool.isAvailable
-                      ? "border-indigo-200 dark:border-indigo-900/60 shadow-md shadow-indigo-500/5 hover:shadow-xl hover:border-indigo-400 dark:hover:border-indigo-500 ring-1 ring-indigo-500/10"
-                      : "border-slate-200/90 dark:border-slate-800/90 hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-700"
-                  }`}
-                >
-                  {/* Top Row: Icon & Status Badge */}
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div
-                        className={`flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-tr ${tool.gradient} text-white shadow-md`}
-                      >
-                        <Icon className="w-6 h-6" />
-                      </div>
-                      {tool.isAvailable ? (
-                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                          {tool.status}
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800/60">
-                          <Clock className="w-3 h-3" />
-                          {tool.status}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Category */}
-                    <div className="pt-2">
-                      <span className={`inline-block text-[11px] font-semibold px-2 py-0.5 rounded-md border ${tool.badgeColor}`}>
-                        {tool.category}
-                      </span>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                      {tool.isAvailable ? (
-                        <Link href={tool.href} className="focus:outline-none">
-                          <span className="absolute inset-0 z-0" aria-hidden="true" />
-                          {tool.title}
-                        </Link>
-                      ) : (
-                        tool.title
-                      )}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                      {tool.description}
-                    </p>
-
-                    {/* Feature bullet points */}
-                    <ul className="pt-2 space-y-2 border-t border-slate-100 dark:border-slate-800/60">
-                      {tool.features.map((feat) => (
-                        <li
-                          key={feat}
-                          className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400"
-                        >
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                          <span>{feat}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Card Bottom / Action */}
-                  <div className="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800 relative z-10">
-                    {tool.isAvailable ? (
-                      <Link
-                        href={tool.href}
-                        className="flex items-center justify-between text-xs font-semibold text-indigo-600 dark:text-indigo-400 group-hover:text-indigo-700 dark:group-hover:text-indigo-300"
-                      >
-                        <span className="font-mono text-[11px] bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded border border-indigo-200/50 dark:border-indigo-800/50">
-                          {tool.href}
-                        </span>
-                        <span className="inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                          Open Tool &rarr;
-                        </span>
-                      </Link>
-                    ) : (
-                      <div className="flex items-center justify-between text-xs font-medium text-slate-500 dark:text-slate-400">
-                        <span>Route: <code className="font-mono text-[11px]">/tools/{tool.id}</code></span>
-                        <span>In Development</span>
-                      </div>
-                    )}
-                  </div>
+          {/* Grouped Tool Sections */}
+          <div className="space-y-12">
+            {toolSections.map((section, sIdx) => (
+              <div
+                key={section.category}
+                className={sIdx > 0 ? "pt-10 border-t border-slate-200/80 dark:border-slate-800/80" : ""}
+              >
+                <div className="mb-6 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-indigo-500" />
+                    {section.category}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                    {section.description}
+                  </p>
                 </div>
-              );
-            })}
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                  {section.tools.map((tool) => {
+                    const Icon = tool.icon;
+                    return (
+                      <div
+                        key={tool.id}
+                        className={`group relative flex flex-col justify-between rounded-2xl border bg-white dark:bg-slate-900/90 p-6 sm:p-7 shadow-sm transition-all duration-300 ${
+                          tool.isAvailable
+                            ? "border-indigo-200 dark:border-indigo-900/60 shadow-md shadow-indigo-500/5 hover:shadow-xl hover:border-indigo-400 dark:hover:border-indigo-500 ring-1 ring-indigo-500/10"
+                            : "border-slate-200/90 dark:border-slate-800/90 hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-700"
+                        }`}
+                      >
+                        {/* Top Row: Icon & Status Badge */}
+                        <div className="space-y-4">
+                          <div className="flex items-center justify-between">
+                            <div
+                              className={`flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-tr ${tool.gradient} text-white shadow-md`}
+                            >
+                              <Icon className="w-6 h-6" />
+                            </div>
+                            {tool.isAvailable ? (
+                              <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                {tool.status}
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800/60">
+                                <Clock className="w-3 h-3" />
+                                {tool.status}
+                              </span>
+                            )}
+                          </div>
+
+                          {/* Category */}
+                          <div className="pt-2">
+                            <span className={`inline-block text-[11px] font-semibold px-2 py-0.5 rounded-md border ${tool.badgeColor}`}>
+                              {tool.category}
+                            </span>
+                          </div>
+
+                          {/* Title */}
+                          <h4 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                            {tool.isAvailable ? (
+                              <Link href={tool.href} className="focus:outline-none">
+                                <span className="absolute inset-0 z-0" aria-hidden="true" />
+                                {tool.title}
+                              </Link>
+                            ) : (
+                              tool.title
+                            )}
+                          </h4>
+
+                          {/* Description */}
+                          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                            {tool.description}
+                          </p>
+
+                          {/* Feature bullet points */}
+                          <ul className="pt-2 space-y-2 border-t border-slate-100 dark:border-slate-800/60">
+                            {tool.features.map((feat) => (
+                              <li
+                                key={feat}
+                                className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400"
+                              >
+                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                                <span>{feat}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {/* Card Bottom / Action */}
+                        <div className="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800 relative z-10">
+                          {tool.isAvailable ? (
+                            <Link
+                              href={tool.href}
+                              className="flex items-center justify-between text-xs font-semibold text-indigo-600 dark:text-indigo-400 group-hover:text-indigo-700 dark:group-hover:text-indigo-300"
+                            >
+                              <span className="font-mono text-[11px] bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded border border-indigo-200/50 dark:border-indigo-800/50">
+                                {tool.href}
+                              </span>
+                              <span className="inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                                Open Tool &rarr;
+                              </span>
+                            </Link>
+                          ) : (
+                            <div className="flex items-center justify-between text-xs font-medium text-slate-500 dark:text-slate-400">
+                              <span>Route: <code className="font-mono text-[11px]">/tools/{tool.id}</code></span>
+                              <span>In Development</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

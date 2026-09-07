@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fastdev.tools";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://feardev.vercel.app";
   const currentDate = new Date();
 
   // Root and tool routes structure

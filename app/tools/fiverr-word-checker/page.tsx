@@ -17,10 +17,10 @@ import {
   BookOpen,
 } from "lucide-react";
 
-const pageUrl = "https://fastdev.tools/tools/fiverr-word-checker";
+const pageUrl = "https://feardev.vercel.app/tools/fiverr-word-checker";
 
 export const metadata: Metadata = {
-  title: "Fiverr & Upwork Restricted Word Checker – Write Safe Messages | FastDev",
+  title: "Fiverr & Upwork Restricted Word Checker – Write Safe Messages | FearDev",
   description:
     "Check your freelance client messages and proposals against Fiverr and Upwork Terms of Service (TOS) restricted words. Detect forbidden contact sharing, off-platform payment triggers, and rating solicitations with instant safe alternatives.",
   keywords: [
@@ -33,34 +33,33 @@ export const metadata: Metadata = {
     "avoid fiverr warnings",
     "freelance client chat filter",
     "fiverr word rephraser",
-    "fastdev tools",
+    "feardev tools",
   ],
   alternates: {
     canonical: pageUrl,
   },
   openGraph: {
-    title: "Fiverr & Upwork Restricted Word Checker – Write Safe Messages | FastDev",
+    title: "Fiverr & Upwork Restricted Word Checker – Write Safe Messages | FearDev",
     description:
       "Avoid account warnings and bans on Fiverr and Upwork. Detect forbidden contact exchange, external payment mentions, and TOS triggers in real-time.",
     url: pageUrl,
     type: "website",
-    siteName: "FastDev",
+    siteName: "FearDev",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "FastDev Fiverr and Upwork Restricted Word Checker",
+        alt: "FearDev Fiverr and Upwork Restricted Word Checker",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fiverr & Upwork Restricted Word Checker – Write Safe Messages | FastDev",
+    title: "Fiverr & Upwork Restricted Word Checker – Write Safe Messages | FearDev",
     description:
       "Detect forbidden keywords and contact sharing triggers before sending client messages or proposals on Fiverr and Upwork.",
     images: ["/og-image.png"],
-    creator: "@fastdev_tools",
   },
 };
 
@@ -168,7 +167,7 @@ export default function FiverrWordCheckerPage() {
           </h1>
 
           {/* <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">
-            FastDev Restricted Word Checker scans your client messages, proposals, and gig descriptions against strict platform Terms of Service (TOS) guidelines. Avoid unexpected account warnings, shadowbans, and communication blocks by identifying high-risk keywords before sending. This essential utility helps freelancers—especially newcomers—phrase communications safely while staying completely within marketplace rules.
+            FearDev Restricted Word Checker scans your client messages, proposals, and gig descriptions against strict platform Terms of Service (TOS) guidelines. Avoid unexpected account warnings, shadowbans, and communication blocks by identifying high-risk keywords before sending. This essential utility helps freelancers—especially newcomers—phrase communications safely while staying completely within marketplace rules.
           </p> */}
         </header>
 
