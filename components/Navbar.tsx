@@ -189,10 +189,10 @@ export function Navbar() {
             >
               <div className="relative flex items-center overflow-hidden ">
                 <Image
-                  src="/feardev.jpg"
+                  src="/FearDev.jpg"
                   alt="FearDev Logo"
-                  width={340}
-                  height={88}
+                  width={140}
+                  height={48}
                   className="h-12 w-42 object-cover"
                   priority
                 />

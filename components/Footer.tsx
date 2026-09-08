@@ -15,7 +15,7 @@ export function Footer() {
             <Link href="/" className="inline-flex items-center gap-2" aria-label="FearDev Homepage">
               <div className="relative flex items-center overflow-hidden">
                 <Image
-                  src="/feardev.jpg"
+                  src="/FearDev.jpg"
                   alt="FearDev Logo"
                   width={130}
                   height={36}
