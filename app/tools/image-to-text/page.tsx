@@ -21,7 +21,7 @@ import {
 const pageUrl = "https://feardev.vercel.app/tools/image-to-text";
 
 export const metadata: Metadata = {
-  title: "Free Image to Text Converter (OCR) Online | FearDev",
+  title: "Image to Text (OCR)",
   description:
     "Extract clean text and code snippets from images, screenshots, and scanned documents in your browser. Free, client-side Optical Character Recognition (OCR) with zero server uploads.",
   keywords: [
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     canonical: pageUrl,
   },
   openGraph: {
-    title: "Free Image to Text Converter (OCR) Online | FearDev",
+    title: "Image to Text (OCR) | FearDev",
     description:
       "Convert PNG, JPG, and WEBP images into editable text instantly with 100% private in-browser OCR.",
     url: pageUrl,
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Image to Text Converter (OCR) Online | FearDev",
+    title: "Image to Text (OCR) | FearDev",
     description:
       "Fast, private in-browser OCR to extract text from images and screenshots without server uploads.",
     images: ["/og-image.png"],

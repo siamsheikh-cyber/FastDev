@@ -17,7 +17,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "FearDev — Developer & Freelancer Utility Toolkit",
+  title: {
+    absolute: "FearDev — Developer & Freelancer Utility Toolkit",
+  },
   description:
     "FearDev delivers instant, client-side utilities for developers and freelancers: Image Format Converters, Text Case Converters, OCR Image to Text, and Fiverr/Upwork Word Checkers.",
   alternates: {

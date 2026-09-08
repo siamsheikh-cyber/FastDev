@@ -20,7 +20,7 @@ import {
 const pageUrl = "https://feardev.vercel.app/tools/fiverr-word-checker";
 
 export const metadata: Metadata = {
-  title: "Fiverr & Upwork Restricted Word Checker – Write Safe Messages | FearDev",
+  title: "Fiverr & Upwork Word Checker",
   description:
     "Check your freelance client messages and proposals against Fiverr and Upwork Terms of Service (TOS) restricted words. Detect forbidden contact sharing, off-platform payment triggers, and rating solicitations with instant safe alternatives.",
   keywords: [
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     canonical: pageUrl,
   },
   openGraph: {
-    title: "Fiverr & Upwork Restricted Word Checker – Write Safe Messages | FearDev",
+    title: "Fiverr & Upwork Word Checker | FearDev",
     description:
       "Avoid account warnings and bans on Fiverr and Upwork. Detect forbidden contact exchange, external payment mentions, and TOS triggers in real-time.",
     url: pageUrl,
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fiverr & Upwork Restricted Word Checker – Write Safe Messages | FearDev",
+    title: "Fiverr & Upwork Word Checker | FearDev",
     description:
       "Detect forbidden keywords and contact sharing triggers before sending client messages or proposals on Fiverr and Upwork.",
     images: ["/og-image.png"],

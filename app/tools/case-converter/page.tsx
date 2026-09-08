@@ -17,7 +17,7 @@ import {
 const pageUrl = "https://feardev.vercel.app/tools/case-converter";
 
 export const metadata: Metadata = {
-  title: "Free Online Text Case Converter – Uppercase, Lowercase, Title Case | FearDev",
+  title: "Text Case Converter",
   description:
     "Instantly convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, and slug formats online. Free, fast, privacy-friendly text transformer for developers, freelancers, and writers.",
   keywords: [
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     canonical: pageUrl,
   },
   openGraph: {
-    title: "Free Online Text Case Converter – Uppercase, Lowercase, Title Case | FearDev",
+    title: "Text Case Converter | FearDev",
     description:
       "Transform strings, headings, and code identifiers into any text case instantly. 100% free and client-side private.",
     url: pageUrl,
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Online Text Case Converter – Uppercase, Lowercase, Title Case | FearDev",
+    title: "Text Case Converter | FearDev",
     description:
       "Transform text between UPPERCASE, lowercase, Title Case, Sentence case, and camelCase with live character counters.",
     images: ["/og-image.png"],

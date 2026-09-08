@@ -23,7 +23,7 @@ import {
 const pageUrl = "https://feardev.vercel.app/tools/image-format-converter";
 
 export const metadata: Metadata = {
-  title: "Free Online Image Format Converter – JPEG, PNG, WEBP | FearDev",
+  title: "Image Format Converter",
   description:
     "Convert images instantly between JPEG, PNG, and WEBP formats directly in your browser. 100% private, client-side image converter with custom compression quality and zero server uploads.",
   keywords: [
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     canonical: pageUrl,
   },
   openGraph: {
-    title: "Free Online Image Format Converter – JPEG, PNG, WEBP | FearDev",
+    title: "Image Format Converter | FearDev",
     description:
       "Transform JPG, PNG, and WEBP images in seconds with native browser Canvas processing. 100% private, fast, and free.",
     url: pageUrl,
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Online Image Format Converter – JPEG, PNG, WEBP | FearDev",
+    title: "Image Format Converter | FearDev",
     description:
       "Fast, private in-browser image format converter. Convert between PNG, JPEG, and WEBP without server uploads.",
     images: ["/og-image.png"],
