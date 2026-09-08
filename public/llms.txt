@@ -4,6 +4,7 @@
 
 ## Tools
 
+- [Image Background Remover](/tools/background-remover): Remove image backgrounds automatically in your browser using client-side AI neural segmentation with transparent PNG downloads and zero server uploads.
 - [Text Case Converter](/tools/case-converter): Transform strings and code identifiers between UPPERCASE, lowercase, Title Case, Sentence case, camelCase, PascalCase, snake_case, and kebab-case with live character and word metrics.
 - [Image to Text (OCR)](/tools/image-to-text): Extract editable text and code snippets from images, screenshots, and scanned documents in the browser using client-side WebAssembly OCR.
 - [Fiverr/Upwork Word Checker](/tools/fiverr-word-checker): Scan client communications and proposals against Fiverr and Upwork Terms of Service (TOS) restricted keywords to prevent warnings and account suspensions.

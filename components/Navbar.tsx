@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   Image as ImageIcon,
   ArrowRight,
+  Eraser,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -48,6 +49,15 @@ const textTools: ToolItem[] = [
 ];
 
 const imageTools: ToolItem[] = [
+  {
+    name: "Image Background Remover",
+    href: "/tools/background-remover",
+    description: "Remove image backgrounds automatically with on-device AI",
+    icon: Eraser,
+    badge: "AI",
+    badgeColor: "bg-purple-50 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300 border-purple-200 dark:border-purple-800/60",
+    iconBg: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20",
+  },
   {
     name: "Image to Text (OCR)",
     href: "/tools/image-to-text",

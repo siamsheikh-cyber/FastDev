@@ -8,6 +8,7 @@ import {
   ShieldCheck,
   Image as ImageIcon,
   ArrowRight,
+  Eraser,
   Zap,
   Lock,
   Cpu,
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     absolute: "FearDev — Developer & Freelancer Utility Toolkit",
   },
   description:
-    "FearDev delivers instant, client-side utilities for developers and freelancers: Image Format Converters, Text Case Converters, OCR Image to Text, and Fiverr/Upwork Word Checkers.",
+    "FearDev delivers instant, client-side utilities for developers and freelancers: Image Background Remover, Image Format Converters, Text Case Converters, OCR Image to Text, and Fiverr/Upwork Word Checkers.",
   alternates: {
     canonical: "/",
   },
@@ -64,8 +65,22 @@ const toolSections = [
   },
   {
     category: "Image Tools",
-    description: "Local in-browser OCR extraction and high-performance format conversion.",
+    description: "On-device AI segmentation, in-browser OCR extraction, and high-performance format conversion.",
     tools: [
+      {
+        id: "background-remover",
+        title: "Image Background Remover",
+        category: "AI & Neural Vision",
+        description:
+          "Isolate subjects and remove backgrounds instantly with client-side AI neural models. Download crisp transparent PNGs with zero server uploads.",
+        icon: Eraser,
+        status: "AI Powered",
+        isAvailable: true,
+        href: "/tools/background-remover",
+        gradient: "from-purple-500 to-indigo-600",
+        badgeColor: "bg-purple-50 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300 border-purple-200 dark:border-purple-800/50",
+        features: ["Client-side WebAssembly AI", "Transparent PNG output", "Interactive Before/After preview"],
+      },
       {
         id: "image-to-text",
         title: "Image to Text (OCR)",
