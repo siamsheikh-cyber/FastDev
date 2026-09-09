@@ -12,7 +12,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Brand Info */}
           <div className="md:col-span-2 space-y-3">
-            <Link href="/" className="inline-flex items-center gap-2" aria-label="FearDev Homepage">
+            <Link href="/" className="inline-flex items-center gap-2 cursor-pointer" aria-label="FearDev Homepage">
               <div className="relative flex items-center overflow-hidden">
                 <Image
                   src="/feardev.jpg"
@@ -35,22 +35,27 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
               <li>
-                <Link href="/tools/case-converter" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-medium text-slate-900 dark:text-slate-200">
+                <Link href="/tools/background-remover" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-medium text-slate-900 dark:text-slate-200 cursor-pointer">
+                  Image Background Remover
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/case-converter" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-medium text-slate-900 dark:text-slate-200 cursor-pointer">
                   Text Case Converter
                 </Link>
               </li>
               <li>
-                <Link href="/tools/image-format-converter" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-medium text-slate-900 dark:text-slate-200">
+                <Link href="/tools/image-format-converter" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-medium text-slate-900 dark:text-slate-200 cursor-pointer">
                   Image Format Converter
                 </Link>
               </li>
               <li>
-                <Link href="/tools/image-to-text" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-medium text-slate-900 dark:text-slate-200">
+                <Link href="/tools/image-to-text" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-medium text-slate-900 dark:text-slate-200 cursor-pointer">
                   Image to Text (OCR)
                 </Link>
               </li>
               <li>
-                <Link href="/tools/fiverr-word-checker" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-medium text-slate-900 dark:text-slate-200">
+                <Link href="/tools/fiverr-word-checker" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-medium text-slate-900 dark:text-slate-200 cursor-pointer">
                   Fiverr / Upwork Word Checker
                 </Link>
               </li>

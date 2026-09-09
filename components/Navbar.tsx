@@ -256,7 +256,7 @@ export function Navbar() {
                   onClick={() =>
                     setActiveDropdown((prev) => (prev === "text" ? null : "text"))
                   }
-                  className={`group flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-xl transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:focus-visible:ring-indigo-400 ${
+                  className={`group flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-xl transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:focus-visible:ring-indigo-400 cursor-pointer ${
                     isTextDropdownOpen || isTextRouteActive
                       ? "bg-indigo-50/90 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 shadow-xs"
                       : "text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60"
@@ -316,7 +316,7 @@ export function Navbar() {
                             role="menuitem"
                             tabIndex={isTextDropdownOpen ? 0 : -1}
                             onClick={() => setActiveDropdown(null)}
-                            className={`group flex items-start gap-3 p-2.5 rounded-xl transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:focus-visible:ring-indigo-400 ${
+                            className={`group flex items-start gap-3 p-2.5 rounded-xl transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:focus-visible:ring-indigo-400 cursor-pointer ${
                               isCurrent
                                 ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
                                 : "hover:bg-slate-100/90 dark:hover:bg-slate-800/70 text-slate-700 dark:text-slate-200"
@@ -376,7 +376,7 @@ export function Navbar() {
                   onClick={() =>
                     setActiveDropdown((prev) => (prev === "image" ? null : "image"))
                   }
-                  className={`group flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-xl transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:focus-visible:ring-indigo-400 ${
+                  className={`group flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-xl transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:focus-visible:ring-indigo-400 cursor-pointer ${
                     isImageDropdownOpen || isImageRouteActive
                       ? "bg-indigo-50/90 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 shadow-xs"
                       : "text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60"
@@ -436,7 +436,7 @@ export function Navbar() {
                             role="menuitem"
                             tabIndex={isImageDropdownOpen ? 0 : -1}
                             onClick={() => setActiveDropdown(null)}
-                            className={`group flex items-start gap-3 p-2.5 rounded-xl transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:focus-visible:ring-indigo-400 ${
+                            className={`group flex items-start gap-3 p-2.5 rounded-xl transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:focus-visible:ring-indigo-400 cursor-pointer ${
                               isCurrent
                                 ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
                                 : "hover:bg-slate-100/90 dark:hover:bg-slate-800/70 text-slate-700 dark:text-slate-200"
@@ -483,7 +483,7 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+              className="md:hidden p-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 cursor-pointer"
               aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={mobileMenuOpen}
             >
@@ -501,7 +501,7 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setMobileTextExpanded((prev) => !prev)}
-              className="w-full flex items-center justify-between px-2 py-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors"
+              className="w-full flex items-center justify-between px-2 py-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
             >
               <div className="flex items-center gap-2">
                 <Type className="w-4 h-4 text-indigo-500" />
@@ -525,7 +525,7 @@ export function Navbar() {
                       key={tool.name}
                       href={tool.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-start gap-3 p-2.5 rounded-xl transition-colors ${
+                      className={`flex items-start gap-3 p-2.5 rounded-xl transition-colors cursor-pointer ${
                         isCurrent
                           ? "bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200/70 dark:border-indigo-800/70"
                           : "bg-white dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-800 dark:text-slate-200"
@@ -565,7 +565,7 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setMobileImageExpanded((prev) => !prev)}
-              className="w-full flex items-center justify-between px-2 py-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors"
+              className="w-full flex items-center justify-between px-2 py-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
             >
               <div className="flex items-center gap-2">
                 <ImageIcon className="w-4 h-4 text-indigo-500" />
@@ -589,7 +589,7 @@ export function Navbar() {
                       key={tool.name}
                       href={tool.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-start gap-3 p-2.5 rounded-xl transition-colors ${
+                      className={`flex items-start gap-3 p-2.5 rounded-xl transition-colors cursor-pointer ${
                         isCurrent
                           ? "bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200/70 dark:border-indigo-800/70"
                           : "bg-white dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-800 dark:text-slate-200"
@@ -628,7 +628,7 @@ export function Navbar() {
             <Link
               href="/tools/case-converter"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-center gap-2 w-full text-center text-sm font-semibold py-2.5 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-sm"
+              className="flex items-center justify-center gap-2 w-full text-center text-sm font-semibold py-2.5 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-sm cursor-pointer"
             >
               <span>Launch Case Converter</span>
               <ArrowRight className="w-4 h-4" />

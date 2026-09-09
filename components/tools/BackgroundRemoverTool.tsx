@@ -29,6 +29,7 @@ const PLAYFUL_CAPTIONS = [
   "Teaching pixels to disappear...",
   "Politely asking the background to leave...",
   "Sharpening the outline...",
+  "Almost there...",
 ];
 
 export function BackgroundRemoverTool() {
@@ -46,69 +47,7 @@ export function BackgroundRemoverTool() {
   const [captionIndex, setCaptionIndex] = useState<number>(0);
   const [captionFade, setCaptionFade] = useState<boolean>(true);
 
-  // --- Laser animation refs (never trigger re-renders) ---
-  const laserLineRef = useRef<HTMLDivElement>(null);
-  const scanContainerRef = useRef<HTMLDivElement>(null);
-  const rafIdRef = useRef<number | null>(null);
-  const startTimeRef = useRef<number | null>(null);
-
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // ─── LASER ANIMATION LOOP ────────────────────────────────────────────────
-  // Runs ONLY when isProcessing flips true/false.
-  // Touches ZERO React state — only direct DOM style mutation via refs.
-  useEffect(() => {
-    if (!isProcessing) {
-      // Stop the loop and reset the line position
-      if (rafIdRef.current !== null) {
-        cancelAnimationFrame(rafIdRef.current);
-        rafIdRef.current = null;
-      }
-      startTimeRef.current = null;
-      if (laserLineRef.current) {
-        laserLineRef.current.style.transform = "translate3d(0, 0px, 0)";
-      }
-      return;
-    }
-
-    // isProcessing just became true — start the loop
-    startTimeRef.current = null;
-    const DURATION = 2400; // ms for one full top→bottom→top bounce
-
-    const tick = (now: number) => {
-      if (startTimeRef.current === null) {
-        startTimeRef.current = now;
-      }
-
-      const elapsed = now - startTimeRef.current;
-
-      // Measure container height each frame (handles layout shifts)
-      const containerH = scanContainerRef.current?.clientHeight ?? 280;
-      const maxY = Math.max(0, containerH - 3);
-
-      // Seamless cosine ease-in-out ping-pong: 0→maxY→0 over DURATION ms
-      const progress = (elapsed % DURATION) / DURATION;
-      const ease = 0.5 - 0.5 * Math.cos(progress * 2 * Math.PI);
-      const y = ease * maxY;
-
-      if (laserLineRef.current) {
-        laserLineRef.current.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
-      }
-
-      // Schedule next frame — store ID in ref so cleanup can cancel it
-      rafIdRef.current = requestAnimationFrame(tick);
-    };
-
-    rafIdRef.current = requestAnimationFrame(tick);
-
-    // Cleanup: cancel if isProcessing turns false OR component unmounts
-    return () => {
-      if (rafIdRef.current !== null) {
-        cancelAnimationFrame(rafIdRef.current);
-        rafIdRef.current = null;
-      }
-    };
-  }, [isProcessing]); // ONLY depends on isProcessing
 
   // ─── CAPTION ROTATION (fully separate, no animation deps) ────────────────
   useEffect(() => {
@@ -305,11 +244,10 @@ export function BackgroundRemoverTool() {
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onClick={() => fileInputRef.current?.click()}
-          className={`relative group cursor-pointer rounded-2xl border-2 border-dashed p-8 md:p-12 text-center transition-all duration-200 ${
-            isDragOver
-              ? "border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/30 scale-[1.008]"
-              : "border-slate-300 dark:border-slate-700/80 bg-white/60 dark:bg-slate-900/60 hover:border-indigo-400 dark:hover:border-indigo-500 hover:bg-slate-50/80 dark:hover:bg-slate-900/90"
-          } shadow-sm backdrop-blur-sm`}
+          className={`relative group cursor-pointer rounded-2xl border-2 border-dashed p-8 md:p-12 text-center transition-all duration-200 ${isDragOver
+            ? "border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/30 scale-[1.008]"
+            : "border-slate-300 dark:border-slate-700/80 bg-white/60 dark:bg-slate-900/60 hover:border-indigo-400 dark:hover:border-indigo-500 hover:bg-slate-50/80 dark:hover:bg-slate-900/90"
+            } shadow-sm backdrop-blur-sm`}
         >
           <div className="flex flex-col items-center justify-center max-w-md mx-auto space-y-4">
             <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 group-hover:scale-110 group-hover:bg-indigo-500/15 transition-transform duration-200">
@@ -351,7 +289,7 @@ export function BackgroundRemoverTool() {
           </div>
           <button
             onClick={() => setErrorMessage(null)}
-            className="p-1 rounded-md hover:bg-rose-100 dark:hover:bg-rose-900/60 transition-colors"
+            className="p-1 rounded-md hover:bg-rose-100 dark:hover:bg-rose-900/60 transition-colors cursor-pointer"
             aria-label="Dismiss error"
           >
             <X className="w-4 h-4" />
@@ -382,7 +320,7 @@ export function BackgroundRemoverTool() {
               <button
                 type="button"
                 onClick={handleReset}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Try Another Image</span>
@@ -392,10 +330,10 @@ export function BackgroundRemoverTool() {
                 <button
                   type="button"
                   onClick={handleDownload}
-                  className="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm shadow-indigo-500/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                  className=""
                 >
                   <Download className="w-3.5 h-3.5" />
-                  <span>Download PNG</span>
+                  <span></span>
                 </button>
               )}
             </div>
@@ -408,9 +346,8 @@ export function BackgroundRemoverTool() {
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400 animate-pulse shrink-0" />
                   <span
-                    className={`font-semibold text-slate-800 dark:text-slate-100 transition-opacity duration-300 ${
-                      captionFade ? "opacity-100" : "opacity-0"
-                    }`}
+                    className={`font-semibold text-slate-800 dark:text-slate-100 transition-opacity duration-300 ${captionFade ? "opacity-100" : "opacity-0"
+                      }`}
                   >
                     {PLAYFUL_CAPTIONS[captionIndex]}
                   </span>
@@ -484,18 +421,17 @@ export function BackgroundRemoverTool() {
 
               {/* Preview container */}
               <div
-                className={`relative flex-1 min-h-[280px] sm:min-h-[340px] flex items-center justify-center p-4 overflow-hidden transition-colors ${
-                  !isProcessing && resultImageUrl
-                    ? ""
-                    : "bg-slate-100/50 dark:bg-slate-950/50"
-                }`}
+                className={`relative flex-1 min-h-[280px] sm:min-h-[340px] flex items-center justify-center p-4 overflow-hidden transition-colors ${!isProcessing && resultImageUrl
+                  ? ""
+                  : "bg-slate-100/50 dark:bg-slate-950/50"
+                  }`}
                 style={
                   !isProcessing && resultImageUrl
                     ? {
-                        backgroundImage:
-                          "repeating-conic-gradient(#cbd5e1 0% 25%, #f1f5f9 0% 50%)",
-                        backgroundSize: "16px 16px",
-                      }
+                      backgroundImage:
+                        "repeating-conic-gradient(#cbd5e1 0% 25%, #f1f5f9 0% 50%)",
+                      backgroundSize: "16px 16px",
+                    }
                     : undefined
                 }
               >
@@ -511,55 +447,42 @@ export function BackgroundRemoverTool() {
                   />
                 )}
 
-                {/* ── LASER SCAN VIEW ─────────────────────────────────────
-                    Always rendered while selectedImage exists but visually
-                    hidden when not processing — this keeps the DOM node
-                    stable so the rAF loop can always write to laserLineRef
-                    without the element disappearing between renders.
-                ─────────────────────────────────────────────────────────── */}
-                <div
-                  className={`relative z-10 flex flex-col items-center justify-center w-full h-full ${
-                    isProcessing ? "block" : "hidden"
-                  }`}
-                >
-                  {/* Image + laser container — measured by rAF loop */}
-                  <div
-                    ref={scanContainerRef}
-                    className="relative inline-flex items-center justify-center overflow-hidden rounded-lg shadow-xs max-h-[320px] max-w-full"
-                  >
-                    {/* Unobstructed original image */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={selectedImage.previewUrl}
-                      alt="Scanning preview"
-                      className="max-h-[320px] max-w-full object-contain block select-none pointer-events-none"
-                    />
+                {/* ── SCAN-LINE REVEAL (pure CSS, no JS positioning) ──────── */}
+                {isProcessing && (
+                  <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
+                    {/* Wrapper: inline-block so it hugs the image dimensions.
+                        overflow:hidden clips the beam & checker to the image bounds.
+                        position:relative anchors both absolute overlay layers. */}
+                    <div className="scan-reveal-wrap rounded-lg shadow-md">
+                      {/* Layer 1 — original image (always fully visible below beam) */}
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={selectedImage.previewUrl}
+                        alt="Scanning preview"
+                        className="scan-reveal-image select-none pointer-events-none"
+                      />
 
-                    {/* Laser line — position driven purely by rAF via ref,
-                        never by React state. will-change promotes to own layer. */}
-                    <div
-                      ref={laserLineRef}
-                      className="absolute top-0 left-0 w-full h-[3px] pointer-events-none z-20 will-change-transform"
-                      style={{
-                        background:
-                          "linear-gradient(90deg, transparent 0%, #22D3EE 20%, #7DF9FF 50%, #22D3EE 80%, transparent 100%)",
-                        boxShadow: "0 0 16px 4px rgba(34, 211, 238, 0.7)",
-                      }}
-                    />
-                  </div>
+                      {/* Layer 2 — checkerboard representing transparent background.
+                          clip-path animates inset(0 0 100%→0% 0) in sync with the
+                          beam, revealing from top downward as it sweeps. */}
+                      <div className="scan-reveal-checker" aria-hidden="true" />
 
-                  {/* Rotating caption — React state, fully isolated from rAF */}
-                  <div className="mt-4 px-4 py-1.5 rounded-full bg-slate-900/85 dark:bg-black/85 text-white backdrop-blur-md border border-white/10 shadow-lg flex items-center gap-2 text-xs">
-                    <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shrink-0" />
-                    <span
-                      className={`font-medium transition-opacity duration-200 text-slate-100 ${
-                        captionFade ? "opacity-100" : "opacity-0"
-                      }`}
-                    >
-                      {PLAYFUL_CAPTIONS[captionIndex]}
-                    </span>
+                      {/* Layer 3 — glowing scan beam sweeping top → bottom */}
+                      <div className="scan-reveal-beam" aria-hidden="true" />
+                    </div>
+
+                    {/* Rotating caption — React state only, no animation coupling */}
+                    <div className="mt-4 px-4 py-1.5 rounded-full bg-slate-900/85 dark:bg-black/85 text-white backdrop-blur-md border border-white/10 shadow-lg flex items-center gap-2 text-xs">
+                      <div className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse shrink-0" />
+                      <span
+                        className={`font-medium transition-opacity duration-200 text-slate-100 ${captionFade ? "opacity-100" : "opacity-0"
+                          }`}
+                      >
+                        {PLAYFUL_CAPTIONS[captionIndex]}
+                      </span>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* ── FINAL RESULT ───────────────────────────────────────── */}
                 {!isProcessing && resultImageUrl && (
@@ -578,7 +501,7 @@ export function BackgroundRemoverTool() {
                   <button
                     type="button"
                     onClick={handleCopyImage}
-                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-xl text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-xl text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors cursor-pointer"
                   >
                     {copied ? (
                       <>
@@ -596,7 +519,7 @@ export function BackgroundRemoverTool() {
                   <button
                     type="button"
                     onClick={handleDownload}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm shadow-indigo-500/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm shadow-indigo-500/20 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>Download Cutout PNG</span>

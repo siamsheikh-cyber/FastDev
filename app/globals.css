@@ -54,3 +54,109 @@ body {
     linear-gradient(to right, rgba(99, 102, 241, 0.07) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(99, 102, 241, 0.07) 1px, transparent 1px);
 }
+
+/* Site-wide interactive cursor styles */
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="file"],
+select,
+summary {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled,
+[aria-disabled="true"],
+.disabled {
+  cursor: not-allowed !important;
+}
+
+input[type="text"],
+input[type="search"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="number"],
+textarea {
+  cursor: text;
+}
+
+/* ── Background-remover scan-line reveal animation ───────────────────────── */
+
+/* Beam sweeps top → bottom over the full container height */
+@keyframes scan-beam-move {
+  0%   { top: 0%; }
+  100% { top: calc(100% - 3px); }
+}
+
+/* Checkerboard is clipped from the bottom, revealing top-downward in sync
+   with the beam: inset(top right bottom left)
+   bottom starts at 100% (nothing visible) and ends at 0% (fully revealed) */
+@keyframes scan-checker-reveal {
+  0%   { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 0% 0); }
+}
+
+/* Wrapper — inline-block shrink-wraps to the image so overlays stay tight */
+.scan-reveal-wrap {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  max-height: 320px;
+  max-width: 100%;
+}
+
+/* Base image — always fully visible; provides dimensions for the container */
+.scan-reveal-image {
+  display: block;
+  max-height: 320px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Checkerboard overlay — light mode */
+.scan-reveal-checker {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: repeating-conic-gradient(#cbd5e1 0% 25%, #f1f5f9 0% 50%);
+  background-size: 16px 16px;
+  /* Start fully clipped (nothing visible), animate to fully revealed */
+  clip-path: inset(0 0 100% 0);
+  animation: scan-checker-reveal 2.5s linear infinite;
+}
+
+/* Dark-mode checkerboard override */
+:where(.dark, .dark *) .scan-reveal-checker {
+  background-image: repeating-conic-gradient(#1e293b 0% 25%, #0f172a 0% 50%);
+}
+
+/* Glowing scan beam */
+.scan-reveal-beam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #6366f1 15%,
+    #a5b4fc 50%,
+    #6366f1 85%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 8px  3px rgba(99, 102, 241, 0.6),
+    0 0 20px 6px rgba(99, 102, 241, 0.25);
+  animation: scan-beam-move 2.5s linear infinite;
+  will-change: top;
+}

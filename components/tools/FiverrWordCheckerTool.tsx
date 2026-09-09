@@ -459,7 +459,7 @@ export function FiverrWordCheckerTool() {
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Paste your Fiverr inbox reply, Upwork proposal, or buyer message here to check for restricted keywords..."
               rows={6}
-              className="w-full p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:bg-white dark:focus:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-[border-color,box-shadow,background-color] font-sans text-base leading-relaxed resize-none overflow-hidden min-h-[160px]"
+              className="w-full p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:bg-white dark:focus:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-[border-color,box-shadow,background-color] font-sans text-base leading-relaxed resize-none overflow-hidden min-h-[160px] cursor-text"
             />
           </div>
 

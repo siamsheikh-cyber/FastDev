@@ -184,7 +184,7 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-4">
               <Link
                 href="/tools/case-converter"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-600/25 hover:shadow-indigo-600/35 transition-all duration-200"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-600/25 hover:shadow-indigo-600/35 transition-all duration-200 cursor-pointer"
               >
                 <span>Launch Case Converter</span>
                 <ArrowRight className="w-4 h-4" />
@@ -192,7 +192,7 @@ export default function HomePage() {
 
               <a
                 href="#tools"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-800 shadow-sm transition-all duration-200"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-800 shadow-sm transition-all duration-200 cursor-pointer"
               >
                 <span>Browse All Tools</span>
               </a>
@@ -244,7 +244,7 @@ export default function HomePage() {
                         key={tool.id}
                         className={`group relative flex flex-col justify-between rounded-2xl border bg-white dark:bg-slate-900/90 p-6 sm:p-7 shadow-sm transition-all duration-300 ${
                           tool.isAvailable
-                            ? "border-indigo-200 dark:border-indigo-900/60 shadow-md shadow-indigo-500/5 hover:shadow-xl hover:border-indigo-400 dark:hover:border-indigo-500 ring-1 ring-indigo-500/10"
+                            ? "border-indigo-200 dark:border-indigo-900/60 shadow-md shadow-indigo-500/5 hover:shadow-xl hover:border-indigo-400 dark:hover:border-indigo-500 ring-1 ring-indigo-500/10 cursor-pointer"
                             : "border-slate-200/90 dark:border-slate-800/90 hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-700"
                         }`}
                       >
@@ -279,8 +279,8 @@ export default function HomePage() {
                           {/* Title */}
                           <h4 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                             {tool.isAvailable ? (
-                              <Link href={tool.href} className="focus:outline-none">
-                                <span className="absolute inset-0 z-0" aria-hidden="true" />
+                              <Link href={tool.href} className="focus:outline-none cursor-pointer">
+                                <span className="absolute inset-0 z-0 cursor-pointer" aria-hidden="true" />
                                 {tool.title}
                               </Link>
                             ) : (
@@ -312,7 +312,7 @@ export default function HomePage() {
                           {tool.isAvailable ? (
                             <Link
                               href={tool.href}
-                              className="flex items-center justify-between text-xs font-semibold text-indigo-600 dark:text-indigo-400 group-hover:text-indigo-700 dark:group-hover:text-indigo-300"
+                              className="flex items-center justify-between text-xs font-semibold text-indigo-600 dark:text-indigo-400 group-hover:text-indigo-700 dark:group-hover:text-indigo-300 cursor-pointer"
                             >
                               <span className="font-mono text-[11px] bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded border border-indigo-200/50 dark:border-indigo-800/50">
                                 {tool.href}

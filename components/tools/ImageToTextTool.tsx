@@ -499,7 +499,7 @@ export function ImageToTextTool() {
                       : "Extracted text will appear here. You can also edit or refine the text directly in this box."
                   }
                   rows={7}
-                  className="w-full p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:bg-white dark:focus:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-[border-color,box-shadow,background-color] font-sans text-base leading-relaxed resize-none overflow-hidden min-h-[180px]"
+                  className="w-full p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:bg-white dark:focus:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-[border-color,box-shadow,background-color] font-sans text-base leading-relaxed resize-none overflow-hidden min-h-[180px] cursor-text"
                 />
 
                 {/* Action Bar for Extracted Text */}
