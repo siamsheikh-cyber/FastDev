@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import {
   UploadCloud,
   Eraser,
@@ -8,8 +8,6 @@ import {
   Download,
   RotateCcw,
   AlertCircle,
-  Loader2,
-  CheckCircle2,
   X,
   FileImage,
   Copy,
@@ -26,6 +24,13 @@ interface ImageInfo {
   rawFile: File;
 }
 
+const PLAYFUL_CAPTIONS = [
+  "Finding the edges...",
+  "Teaching pixels to disappear...",
+  "Politely asking the background to leave...",
+  "Sharpening the outline...",
+];
+
 export function BackgroundRemoverTool() {
   const [selectedImage, setSelectedImage] = useState<ImageInfo | null>(null);
   const [resultImageUrl, setResultImageUrl] = useState<string | null>(null);
@@ -37,16 +42,100 @@ export function BackgroundRemoverTool() {
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
 
+  // --- Caption rotation state (completely separate from animation) ---
+  const [captionIndex, setCaptionIndex] = useState<number>(0);
+  const [captionFade, setCaptionFade] = useState<boolean>(true);
+
+  // --- Laser animation refs (never trigger re-renders) ---
+  const laserLineRef = useRef<HTMLDivElement>(null);
+  const scanContainerRef = useRef<HTMLDivElement>(null);
+  const rafIdRef = useRef<number | null>(null);
+  const startTimeRef = useRef<number | null>(null);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Format file size helper
+  // ─── LASER ANIMATION LOOP ────────────────────────────────────────────────
+  // Runs ONLY when isProcessing flips true/false.
+  // Touches ZERO React state — only direct DOM style mutation via refs.
+  useEffect(() => {
+    if (!isProcessing) {
+      // Stop the loop and reset the line position
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
+      }
+      startTimeRef.current = null;
+      if (laserLineRef.current) {
+        laserLineRef.current.style.transform = "translate3d(0, 0px, 0)";
+      }
+      return;
+    }
+
+    // isProcessing just became true — start the loop
+    startTimeRef.current = null;
+    const DURATION = 2400; // ms for one full top→bottom→top bounce
+
+    const tick = (now: number) => {
+      if (startTimeRef.current === null) {
+        startTimeRef.current = now;
+      }
+
+      const elapsed = now - startTimeRef.current;
+
+      // Measure container height each frame (handles layout shifts)
+      const containerH = scanContainerRef.current?.clientHeight ?? 280;
+      const maxY = Math.max(0, containerH - 3);
+
+      // Seamless cosine ease-in-out ping-pong: 0→maxY→0 over DURATION ms
+      const progress = (elapsed % DURATION) / DURATION;
+      const ease = 0.5 - 0.5 * Math.cos(progress * 2 * Math.PI);
+      const y = ease * maxY;
+
+      if (laserLineRef.current) {
+        laserLineRef.current.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
+      }
+
+      // Schedule next frame — store ID in ref so cleanup can cancel it
+      rafIdRef.current = requestAnimationFrame(tick);
+    };
+
+    rafIdRef.current = requestAnimationFrame(tick);
+
+    // Cleanup: cancel if isProcessing turns false OR component unmounts
+    return () => {
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
+      }
+    };
+  }, [isProcessing]); // ONLY depends on isProcessing
+
+  // ─── CAPTION ROTATION (fully separate, no animation deps) ────────────────
+  useEffect(() => {
+    if (!isProcessing) {
+      setCaptionIndex(0);
+      setCaptionFade(true);
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setCaptionFade(false);
+      setTimeout(() => {
+        setCaptionIndex((prev) => (prev + 1) % PLAYFUL_CAPTIONS.length);
+        setCaptionFade(true);
+      }, 200);
+    }, 1800);
+
+    return () => clearInterval(interval);
+  }, [isProcessing]);
+
+  // ─── HELPERS ─────────────────────────────────────────────────────────────
   const formatFileSize = (bytes: number): string => {
     if (bytes < 1024) return `${bytes} B`;
     if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
     return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
   };
 
-  // Perform background removal using @imgly/background-removal (lazy loaded)
   const processBackgroundRemoval = useCallback(async (file: File) => {
     setIsProcessing(true);
     setProgress(0);
@@ -56,7 +145,6 @@ export function BackgroundRemoverTool() {
     setResultBlob(null);
 
     try {
-      // Lazy load @imgly/background-removal only on demand
       const { removeBackground } = await import("@imgly/background-removal");
 
       const blob = await removeBackground(file, {
@@ -79,8 +167,8 @@ export function BackgroundRemoverTool() {
           } else {
             setStatusText(
               percent > 0
-                ? `Processing image (${percent}%)...`
-                : "Refining cutout edges..."
+                ? `Refining edges (${percent}%)...`
+                : "Generating transparent cutout..."
             );
           }
         },
@@ -102,15 +190,12 @@ export function BackgroundRemoverTool() {
     }
   }, []);
 
-  // Handle uploaded file
   const handleFile = useCallback(
     (file: File) => {
       if (!file.type.startsWith("image/")) {
         setErrorMessage("Please select a valid image file (JPG, PNG, WEBP).");
         return;
       }
-
-      // Max 25MB safety check
       if (file.size > 25 * 1024 * 1024) {
         setErrorMessage("File size exceeds 25MB limit. Please choose a smaller photo.");
         return;
@@ -126,7 +211,6 @@ export function BackgroundRemoverTool() {
         rawFile: file,
       });
 
-      // Start processing automatically
       processBackgroundRemoval(file);
     },
     [processBackgroundRemoval]
@@ -136,7 +220,6 @@ export function BackgroundRemoverTool() {
     (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
       setIsDragOver(false);
-
       if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
         handleFile(e.dataTransfer.files[0]);
       }
@@ -163,14 +246,9 @@ export function BackgroundRemoverTool() {
     [handleFile]
   );
 
-  // Clear and reset state
   const handleReset = useCallback(() => {
-    if (selectedImage?.previewUrl) {
-      URL.revokeObjectURL(selectedImage.previewUrl);
-    }
-    if (resultImageUrl) {
-      URL.revokeObjectURL(resultImageUrl);
-    }
+    if (selectedImage?.previewUrl) URL.revokeObjectURL(selectedImage.previewUrl);
+    if (resultImageUrl) URL.revokeObjectURL(resultImageUrl);
     setSelectedImage(null);
     setResultImageUrl(null);
     setResultBlob(null);
@@ -178,15 +256,11 @@ export function BackgroundRemoverTool() {
     setProgress(0);
     setStatusText("");
     setErrorMessage(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
+    if (fileInputRef.current) fileInputRef.current.value = "";
   }, [selectedImage, resultImageUrl]);
 
-  // Download resulting transparent PNG
   const handleDownload = useCallback(() => {
     if (!resultImageUrl || !selectedImage) return;
-
     const link = document.createElement("a");
     const baseName = selectedImage.name.replace(/\.[^/.]+$/, "");
     link.href = resultImageUrl;
@@ -196,15 +270,12 @@ export function BackgroundRemoverTool() {
     document.body.removeChild(link);
   }, [resultImageUrl, selectedImage]);
 
-  // Copy cutout image to clipboard (as PNG Blob)
   const handleCopyImage = useCallback(async () => {
     if (!resultBlob) return;
     try {
       if (navigator.clipboard && window.ClipboardItem) {
         await navigator.clipboard.write([
-          new ClipboardItem({
-            "image/png": resultBlob,
-          }),
+          new ClipboardItem({ "image/png": resultBlob }),
         ]);
         setCopied(true);
         setTimeout(() => setCopied(false), 2500);
@@ -214,6 +285,7 @@ export function BackgroundRemoverTool() {
     }
   }, [resultBlob]);
 
+  // ─── RENDER ──────────────────────────────────────────────────────────────
   return (
     <div className="w-full space-y-6">
       {/* Hidden File Input */}
@@ -226,7 +298,7 @@ export function BackgroundRemoverTool() {
         id="bg-remove-upload-input"
       />
 
-      {/* Upload Zone (Visible when no image is selected) */}
+      {/* Upload Zone */}
       {!selectedImage && (
         <div
           onDrop={handleDrop}
@@ -287,7 +359,7 @@ export function BackgroundRemoverTool() {
         </div>
       )}
 
-      {/* Workspace Area: Processing / Results */}
+      {/* Workspace Area */}
       {selectedImage && (
         <div className="space-y-6">
           {/* Top Control Bar */}
@@ -331,18 +403,23 @@ export function BackgroundRemoverTool() {
 
           {/* Processing Progress Banner */}
           {isProcessing && (
-            <div className="p-5 rounded-2xl border border-indigo-200/70 dark:border-indigo-900/60 bg-indigo-50/70 dark:bg-indigo-950/40 space-y-3 animate-in fade-in duration-200">
-              <div className="flex items-center justify-between text-xs sm:text-sm font-medium">
-                <div className="flex items-center gap-2 text-indigo-700 dark:text-indigo-300">
-                  <Loader2 className="w-4 h-4 animate-spin text-indigo-600 dark:text-indigo-400" />
-                  <span>{statusText || "Processing image..."}</span>
+            <div className="p-4 sm:p-5 rounded-2xl border border-indigo-200/70 dark:border-indigo-900/60 bg-gradient-to-r from-indigo-50/80 via-purple-50/50 to-indigo-50/80 dark:from-indigo-950/50 dark:via-purple-950/30 dark:to-indigo-950/50 space-y-3 animate-in fade-in duration-200">
+              <div className="flex items-center justify-between text-xs sm:text-sm">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400 animate-pulse shrink-0" />
+                  <span
+                    className={`font-semibold text-slate-800 dark:text-slate-100 transition-opacity duration-300 ${
+                      captionFade ? "opacity-100" : "opacity-0"
+                    }`}
+                  >
+                    {PLAYFUL_CAPTIONS[captionIndex]}
+                  </span>
                 </div>
-                <span className="font-semibold text-indigo-600 dark:text-indigo-400">
-                  {progress > 0 ? `${progress}%` : "Running AI"}
+                <span className="font-mono text-xs font-bold text-indigo-600 dark:text-indigo-400 shrink-0">
+                  {progress > 0 ? `${progress}%` : "AI SCANNING"}
                 </span>
               </div>
 
-              {/* Progress Bar */}
               <div className="w-full h-2 rounded-full bg-indigo-200/60 dark:bg-indigo-900/80 overflow-hidden">
                 <div
                   className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 transition-all duration-300 rounded-full"
@@ -350,13 +427,14 @@ export function BackgroundRemoverTool() {
                 />
               </div>
 
-              <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                ⚡ The neural model runs 100% locally in your browser. First run may take a few seconds to load the WebAssembly runtime.
-              </p>
+              <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
+                <span>{statusText || "Processing image..."}</span>
+                <span>On-device WebAssembly</span>
+              </div>
             </div>
           )}
 
-          {/* Side-by-Side Comparison Container */}
+          {/* Side-by-Side Comparison */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* 1. Original Image */}
             <div className="flex flex-col rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900 overflow-hidden shadow-xs">
@@ -379,68 +457,122 @@ export function BackgroundRemoverTool() {
               </div>
             </div>
 
-            {/* 2. Transparent Background Result */}
+            {/* 2. Result / Laser Scan Preview */}
             <div className="flex flex-col rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900 overflow-hidden shadow-xs">
               <div className="px-4 py-2.5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-900/50">
                 <div className="flex items-center gap-1.5">
                   <span className="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-                    Removed Background
+                    {isProcessing ? "AI Processing Cutout" : "Removed Background"}
                   </span>
                   <span className="px-1.5 py-0.2 rounded text-[10px] font-bold bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800">
                     PNG
                   </span>
                 </div>
 
-                {resultBlob && (
+                {resultBlob && !isProcessing && (
                   <span className="text-[11px] text-slate-500 dark:text-slate-400">
                     {formatFileSize(resultBlob.size)}
                   </span>
                 )}
+                {isProcessing && (
+                  <span className="inline-flex items-center gap-1 text-[11px] font-medium text-cyan-600 dark:text-cyan-400 animate-pulse">
+                    <Eraser className="w-3.5 h-3.5" />
+                    <span>Removing...</span>
+                  </span>
+                )}
               </div>
 
-              {/* Preview with transparency checkerboard pattern */}
+              {/* Preview container */}
               <div
-                className="relative flex-1 min-h-[280px] sm:min-h-[340px] flex items-center justify-center p-4"
-                style={{
-                  backgroundImage:
-                    "repeating-conic-gradient(#cbd5e1 0% 25%, #f1f5f9 0% 50%)",
-                  backgroundSize: "16px 16px",
-                }}
+                className={`relative flex-1 min-h-[280px] sm:min-h-[340px] flex items-center justify-center p-4 overflow-hidden transition-colors ${
+                  !isProcessing && resultImageUrl
+                    ? ""
+                    : "bg-slate-100/50 dark:bg-slate-950/50"
+                }`}
+                style={
+                  !isProcessing && resultImageUrl
+                    ? {
+                        backgroundImage:
+                          "repeating-conic-gradient(#cbd5e1 0% 25%, #f1f5f9 0% 50%)",
+                        backgroundSize: "16px 16px",
+                      }
+                    : undefined
+                }
               >
-                {/* Dark mode overlay pattern */}
-                <div className="absolute inset-0 dark:block hidden pointer-events-none opacity-90"
-                  style={{
-                    backgroundImage:
-                      "repeating-conic-gradient(#1e293b 0% 25%, #0f172a 0% 50%)",
-                    backgroundSize: "16px 16px",
-                  }}
-                />
-
-                {isProcessing && (
-                  <div className="relative z-10 flex flex-col items-center justify-center p-6 text-center space-y-3 bg-white/90 dark:bg-slate-900/90 rounded-2xl backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-lg max-w-xs">
-                    <Loader2 className="w-8 h-8 text-indigo-600 dark:text-indigo-400 animate-spin" />
-                    <div className="space-y-1">
-                      <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-                        {statusText || "Processing Cutout..."}
-                      </p>
-                      <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                        Detecting edges and isolating subject...
-                      </p>
-                    </div>
-                  </div>
+                {/* Dark mode checkerboard overlay — result only */}
+                {!isProcessing && resultImageUrl && (
+                  <div
+                    className="absolute inset-0 dark:block hidden pointer-events-none opacity-90"
+                    style={{
+                      backgroundImage:
+                        "repeating-conic-gradient(#1e293b 0% 25%, #0f172a 0% 50%)",
+                      backgroundSize: "16px 16px",
+                    }}
+                  />
                 )}
 
+                {/* ── LASER SCAN VIEW ─────────────────────────────────────
+                    Always rendered while selectedImage exists but visually
+                    hidden when not processing — this keeps the DOM node
+                    stable so the rAF loop can always write to laserLineRef
+                    without the element disappearing between renders.
+                ─────────────────────────────────────────────────────────── */}
+                <div
+                  className={`relative z-10 flex flex-col items-center justify-center w-full h-full ${
+                    isProcessing ? "block" : "hidden"
+                  }`}
+                >
+                  {/* Image + laser container — measured by rAF loop */}
+                  <div
+                    ref={scanContainerRef}
+                    className="relative inline-flex items-center justify-center overflow-hidden rounded-lg shadow-xs max-h-[320px] max-w-full"
+                  >
+                    {/* Unobstructed original image */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={selectedImage.previewUrl}
+                      alt="Scanning preview"
+                      className="max-h-[320px] max-w-full object-contain block select-none pointer-events-none"
+                    />
+
+                    {/* Laser line — position driven purely by rAF via ref,
+                        never by React state. will-change promotes to own layer. */}
+                    <div
+                      ref={laserLineRef}
+                      className="absolute top-0 left-0 w-full h-[3px] pointer-events-none z-20 will-change-transform"
+                      style={{
+                        background:
+                          "linear-gradient(90deg, transparent 0%, #22D3EE 20%, #7DF9FF 50%, #22D3EE 80%, transparent 100%)",
+                        boxShadow: "0 0 16px 4px rgba(34, 211, 238, 0.7)",
+                      }}
+                    />
+                  </div>
+
+                  {/* Rotating caption — React state, fully isolated from rAF */}
+                  <div className="mt-4 px-4 py-1.5 rounded-full bg-slate-900/85 dark:bg-black/85 text-white backdrop-blur-md border border-white/10 shadow-lg flex items-center gap-2 text-xs">
+                    <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shrink-0" />
+                    <span
+                      className={`font-medium transition-opacity duration-200 text-slate-100 ${
+                        captionFade ? "opacity-100" : "opacity-0"
+                      }`}
+                    >
+                      {PLAYFUL_CAPTIONS[captionIndex]}
+                    </span>
+                  </div>
+                </div>
+
+                {/* ── FINAL RESULT ───────────────────────────────────────── */}
                 {!isProcessing && resultImageUrl && (
-                  /* eslint-disable-next-line @next/next/no-img-element */
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={resultImageUrl}
                     alt="Background removed result"
-                    className="relative z-10 max-h-[320px] max-w-full object-contain rounded-lg drop-shadow-md animate-in zoom-in-95 duration-200"
+                    className="relative z-10 max-h-[320px] max-w-full object-contain rounded-lg drop-shadow-md animate-in fade-in zoom-in-95 duration-300"
                   />
                 )}
               </div>
 
-              {/* Action Buttons for Result */}
+              {/* Action Buttons */}
               {resultImageUrl && (
                 <div className="p-3 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex items-center justify-end gap-2">
                   <button
