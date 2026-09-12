@@ -358,5 +358,23 @@
     "category": "Conduct Related",
     "alternative": "Resolution Center discussion / customer support inquiry",
     "note": "Use official resolution channels."
+  },
+  {
+    "word": "stripe",
+    "category": "Payment Related",
+    "alternative": "Avoid mentioning payment processor names — discuss payment through the platform's built-in system",
+    "note": "Mentioning specific off-site payment processors is strictly forbidden and triggers compliance reviews."
+  },
+  {
+    "word": "square",
+    "category": "Payment Related",
+    "alternative": "Avoid mentioning payment processor names — discuss payment through the platform's built-in system",
+    "note": "Mentioning specific off-site payment processors is strictly forbidden and triggers compliance reviews."
+  },
+  {
+    "word": "tiktok",
+    "category": "Contact/Communication Methods",
+    "alternative": "Remove this — mentioning social media platforms may violate platform terms",
+    "note": "Social media platform references are flagged by automated compliance filters."
   }
 ]
